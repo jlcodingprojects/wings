@@ -1,0 +1,6 @@
+{
+  "name": "Wings.Runtime",
+  "rootNamespace": "Wings",
+  "references": ["Unity.InputSystem"],
+  "autoReferenced": true
+}

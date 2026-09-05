@@ -1,0 +1,21 @@
+# Local installer cache; keep release/checksum evidence in Setup instead.
+/Downloads/
+
+# Unity generated files (project will live in Game).
+/Game/[Ll]ibrary/
+/Game/[Tt]emp/
+/Game/[Oo]bj/
+/Game/[Ll]ogs/
+/Game/[Uu]ser[Ss]ettings/
+/Game/[Bb]uild/
+/Game/[Bb]uilds/
+/Game/.vs/
+/Game/*.csproj
+/Game/*.sln
+/Game/*.slnx
+/Artifacts/
+/Builds/
+/Game/MemoryCaptures/
+/Game/Recordings/
+*.blend1
+*.blend2

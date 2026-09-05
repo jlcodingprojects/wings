@@ -15,15 +15,31 @@
 | Stack | Unity 6.3 LTS, URP/C#, Blender 4.5 LTS; scripted file/CLI workflow |
 | Visuals | Provisional gouache/watercolour; final selection at 3A |
 | Collaboration | Pause after every meaningful increment |
-| Current work | Revise documentation only; setup/gameplay remain pending |
+| Current work | User installed tools and authorised project creation and subsequent setup/implementation; checkpoint 1A in progress |
 
 The old eight-species/two-predator MVP, stamina, camera destabilisation, exclusive wind weather state and eleven-stage roadmap are superseded.
 
+## Implementation clarification — 2026-09-05
+
+- Start with the installation checklist. Download required items and provide manual steps. Do not install, run installers, modify workloads or activate licences on the user's behalf without checking first.
+- Initial gameplay is flying one bird. The overall game is about guiding and watching a living flock, with individually simulated birds flying together, joining, leaving and regrouping.
+- No bird ever dies. Predator impact can break up the flock and injure the player bird. This supersedes the previous no-injury rule.
+- Separate known identities from active membership; voluntary departures are not death or erased progression. The previous permanent active-membership assumption is superseded.
+- Recoverable injury details and social departure triggers are provisional until demonstrated and reviewed. The existing three-stage/checkpoint structure remains in force.
+- Setup downloads completed: Unity 6000.3.23f1 and Blender 4.5.13 x64. Both match publisher checksums and have valid Authenticode signatures; see `Setup/download-verification.json`. Manual steps are in `Setup/INSTALL_STEPS.md`. No software was installed, and no checkpoint has been accepted or declared playable.
+
 ## Checkpoints
+
+### Setup completion and flight experiment direction — 2026-09-05
+
+- User confirmed installation at `C:\Program Files\Unity 6000.3.23f1` and `C:\Program Files\Blender Foundation\Blender 4.5` and authorised all subsequent setup/project steps.
+- Unity launched with an eligible licence; Blender reports 4.5.13 LTS; Visual Studio 2022 Unity workload is detected.
+- User explicitly selected **both assisted and momentum flight as switchable experiments**. Neither is accepted as the final flight model. Tuning, camera and art remain provisional.
+- Scope of this increment: a single-bird comparison playground, reproducible toolchain checks and a Windows player. Living flock implementation waits for its review checkpoint.
 
 | ID | Name | Implementation | Human decision |
 |---|---|---|---|
-| 1A | Setup and control | Pending | Pending |
+| 1A | Setup and control | Windows A/B prototype built; toolchain, 11 tests and visible player checks pass; physical-controller check pending | Pending |
 | 1B | Flight feel | Pending | Pending |
 | 1C | Camera and contact | Pending | Pending |
 | 1D | Flight playground | Pending | Pending |
@@ -37,7 +53,15 @@ The old eight-species/two-predator MVP, stamina, camera destabilisation, exclusi
 | 3C | Full-world treatment | Pending | Pending |
 | 3D | Final playable build | Pending | Pending |
 
-## Review entry template
+## 1A review packet — 2026-09-06
+
+- Build: `0.1.0-checkpoint1a`, `Builds/Checkpoint1A/Wings.exe`.
+- Delivered: switchable assisted/momentum single-bird flight, editable session tuning, stable follow/orbit camera, mouse/controller input and a temporary comparison space.
+- Evidence: zero build errors/warnings, 11 edit-mode passes, visible Windows player smoke pass, inspected menu/flight captures, Blender scale/orientation/animation validation. See `Setup/checkpoint1a-evidence.json` and `CHECKPOINT_1A_REVIEW.md`.
+- Limitations: no physical controller connected during automated tests; no human flight-feel acceptance; no perching/flock/predator implementation. All movement and art remain provisional.
+- Decision: pending user playtest feedback. No automatic advance to 1B or flock production.
+
+## Review entry template (for subsequent checkpoints)
 
 - Date / checkpoint / build:
 - Delivered changes:

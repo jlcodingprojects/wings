@@ -4,7 +4,7 @@ Implementation begins only after the documentation pass. Follow checkpoints in o
 
 ## Stage 1 — Initial gameplay
 
-Goal: flight is pleasant in a simple 3D landscape.
+Goal: flying a single bird is pleasant in a simple 3D landscape. Establish flight state and movement boundaries that will also support individually simulated flock birds. Setup begins with downloads only; installations require user approval.
 
 | Checkpoint | Deliverable | Review |
 |---|---|---|
@@ -22,9 +22,9 @@ Goal: complete discovery-to-finale gameplay with placeholder art.
 | Checkpoint | Deliverable | Review |
 |---|---|---|
 | 2A Valley exploration | Connected valley and six functional landmarks | Layout, travel time and sightlines |
-| 2B Living flock | One species proves recruitment, formation and recovery | Believability and satisfaction |
+| 2B Living flock | One species proves mutual flight dynamics, joining/leaving, loose formation and regrouping | Believability and satisfaction when guiding and observing |
 | 2C Changing world | Automatic time/seasons, rest, weather and independent wind | Pacing, readability and comfort |
-| 2D Gentle tension | One hawk, warnings, timing constraints and regrouping | Fairness and tension |
+| 2D Gentle tension | One hawk, warnings, timing constraints, flock breakup and recoverable player injury; no deaths | Fairness, recovery and tension |
 | 2E Complete loop | Four species, persistent journal/roster, save/load, functional audio and migration finale | 20–30-minute route and replayability |
 
 Exit: complete loop works, progress survives reloads, content is reachable without waiting a year, and human accepts pacing. Final asset production waits.

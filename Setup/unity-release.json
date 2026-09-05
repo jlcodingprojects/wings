@@ -1,0 +1,27 @@
+{
+  "version": "6000.3.23f1",
+  "releaseDate": "2026-08-26T14:35:12.727Z",
+  "shortRevision": "09d2ecc7fb28",
+  "stream": "LTS",
+  "releaseNotes": {
+    "url": "https://storage.googleapis.com/live-platform-resources-prd/templates/assets/6000_3_23f1_992029fce5/6000_3_23f1_992029fce5.md",
+    "type": "MD"
+  },
+  "downloads": [
+    {
+      "url": "https://download.unity3d.com/download_unity/09d2ecc7fb28/Windows64EditorInstaller/UnitySetup64-6000.3.23f1.exe",
+      "type": "EXE",
+      "platform": "WINDOWS",
+      "architecture": "X86_64",
+      "downloadSize": {
+        "value": 4125667560,
+        "unit": "BYTE"
+      },
+      "installedSize": {
+        "value": 8312215291,
+        "unit": "BYTE"
+      },
+      "integrity": "md5-w9U2GuX9kHjEPuCnOnhzDA=="
+    }
+  ]
+}

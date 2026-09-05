@@ -1,0 +1,59 @@
+{
+  "checkedDate": "2026-09-06",
+  "build": {
+    "result": "Succeeded",
+    "unity": "6000.3.23f1",
+    "backend": "Mono",
+    "graphics": "Direct3D11",
+    "scene": "Assets/Wings/Generated/FlightStudy.unity",
+    "errors": 0,
+    "warnings": 0,
+    "bytes": 164745604
+  },
+  "assetPipeline": {
+    "result": "passed",
+    "urp": "PC_RPAsset",
+    "referenceSize": {
+      "x": 1.0,
+      "y": 0.999999463558197,
+      "z": 0.999999463558197
+    },
+    "forwardMarker": {
+      "x": 0.0,
+      "y": 0.5000002384185791,
+      "z": 1.499999761581421
+    },
+    "importedClips": 1,
+    "animationVertexMovement": 0.3049035668373108
+  },
+  "player": {
+    "unity": "6000.3.23f1",
+    "graphics": "Direct3D11",
+    "device": "NVIDIA GeForce RTX 4070 Ti",
+    "result": "passed",
+    "physicalGamepads": 0,
+    "checks": [
+      "PASS: Scene bootstrap present",
+      "PASS: Graphics-enabled player",
+      "PASS: Synthetic controller reaches input and moves bird",
+      "PASS: Mode B is selectable at runtime",
+      "PASS: Mouse fallback steers and flaps after controller removal",
+      "PASS: Pointer over HUD does not also fly/flap",
+      "PASS: Pause freezes the bird",
+      "PASS: Rendered flight capture written",
+      "PASS: Captures contain visible rendered content"
+    ]
+  },
+  "editModeTests": {
+    "failed": 0,
+    "total": 11,
+    "passed": 11,
+    "result": "Passed"
+  },
+  "visualInspection": {
+    "menu": "Inspected: readable controls and tuning",
+    "flight": "Inspected: rendered bird, terrain, guides, water and HUD",
+    "humanFeelAccepted": false
+  },
+  "physicalControllerTested": false
+}

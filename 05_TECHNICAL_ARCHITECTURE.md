@@ -15,7 +15,9 @@ Local builds/tests come first. Hosted CI, third-party editor bridges, DOTS/ECS, 
 | Input → flight | Normalised steer, flap, look and land/takeoff intent |
 | Flight → camera/animation/flock | Pose, velocity and movement mode |
 | Environment → birds/flight/presentation | Immutable local time, season, precipitation, wind and shelter sample |
-| Flock director → agents | Membership, formation targets, recruitment and recovery |
+| Flock director → agents | Stable identity, active/reserved membership, loose formation guidance, joining/leaving and recovery |
+| Bird simulation → bird simulation | Position/velocity snapshots and bounded neighbour observations for mutual steering |
+| Predator impact → bird condition | Nonlethal injury and recoverable flock disruption; presentation consumes condition events |
 | Progression → persistence | Stable IDs, roster, discoveries, finale state and safe perch |
 | Gameplay → presentation | Discovery, recruitment, threat and environment events |
 
@@ -27,7 +29,7 @@ Keep bootstrap, simulation and presentation separate. A single gameplay scene is
 
 ## Save/load
 
-Versioned JSON stores discovered species/landmark IDs, roster identities, finale state, environment clock/transitions, safe perch and predator protection/cooldown state. Store settings separately so a new game preserves preferences.
+Versioned JSON stores discovered species/landmark IDs, known bird identities, active/reserved/independent membership state, recoverable player injury state, finale state, environment clock/transitions, safe perch and predator protection/cooldown state. Store settings separately so a new game preserves preferences.
 
 Write a temporary file, finish it, then replace the main save while retaining a backup. On unreadable/corrupt save, attempt the backup and report recovery. Preserve an unsupported newer save instead of overwriting it. If neither copy is usable, offer a fresh game.
 

@@ -2,7 +2,9 @@
 
 ## Authority and scope
 
-The human steers game feel, scope and art direction. The implementation agent makes routine technical decisions within accepted scope. This documentation revision does not authorise bypassing the checkpoint sequence.
+The human steers game feel, scope and art direction. The implementation agent makes routine technical decisions within accepted scope. On 2026-09-05 the user confirmed tool installation and authorised subsequent setup, project creation, package resolution, tests and implementation. The earlier download-only restriction is superseded for this work. This does not bypass gameplay review checkpoints.
+
+Do not lock in a flight model or core gameplay choice early. Keep the first assisted and momentum flight experiments switchable and their tuning editable. Obtain feedback on meaningful design choices using an actual playable comparison.
 
 Work on the next checkpoint only. Do not implement all stages in one unattended pass. Pause for feedback at each checkpoint; silence is not approval.
 

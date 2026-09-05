@@ -2,9 +2,9 @@
 
 ## Intent and scope
 
-Working title: **Wings of Wander**. A single-player, offline Windows exploration game about being a bird, discovering a valley and gradually gathering a flock.
+Working title: **Wings of Wander**. A single-player, offline Windows game about flight and flock dynamics. Initially the player flies one bird; the broader experience is guiding and watching a living flock, with individuals flying together, joining, leaving and regrouping while exploring a valley.
 
-Flight is relaxed and effortless. Controller tuning leads; mouse gameplay remains supported. There is no conventional combat, injury, death, inventory-heavy survival or stamina resource. Bird behaviours are stylised gameplay rules, not biological claims.
+Flight is relaxed and effortless. Controller tuning leads; mouse gameplay remains supported. There is no death for any bird, conventional combat, inventory-heavy survival or stamina resource. Predator impact can break up the flock and injure the player bird. Injury is recoverable; its presentation and flight effects need a concrete review at 2D. Bird behaviours are simulated gameplay rules, not claims of biological accuracy.
 
 Core loop: fly → notice a landmark or bird → approach → recruit or discover → explore with the flock → encounter gentle environmental/predator variety → regroup → continue. A short migration finale provides closure; free exploration remains available.
 
@@ -48,9 +48,9 @@ A while perched initiates assisted takeoff into clear space. Water contact or an
 
 ## Resources and failure
 
-No stamina bar or exhaustion mechanic. Flock confidence is internal behavioural state: lower confidence widens spacing and triggers temporary scattering. The player retains reliable controls, journal discoveries and recruited companions.
+No stamina bar or exhaustion mechanic. Flock confidence is internal behavioural state: lower confidence widens spacing and triggers temporary scattering. Journal discoveries and known bird identities persist while active flock membership can change. A bird leaving the flock remains alive and can return.
 
-Predators create regular gentle tension with readable warnings, brief feints and recoverable separation. No permanent companion loss.
+Predators create readable warnings, brief approaches and recoverable separation; impact can injure the player bird. No injury progresses to death, and no predator permanently deletes companions. Provisionally retain reliable steering and safe-perch recovery; injury tuning is not yet accepted.
 
 ## Acceptance
 

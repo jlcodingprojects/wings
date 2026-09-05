@@ -1,0 +1,6 @@
+{
+  "name": "Wings.Editor",
+  "rootNamespace": "Wings.Editor",
+  "references": ["Wings.Runtime", "Unity.InputSystem", "Unity.RenderPipelines.Universal.Runtime"],
+  "includePlatforms": ["Editor"]
+}
