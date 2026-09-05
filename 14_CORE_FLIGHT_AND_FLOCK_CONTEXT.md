@@ -12,6 +12,8 @@ The current scope stays at 16 companions, with 30 tested for headroom. This mean
 
 At 1A/1B, separate human input from flight intent, simulation state and presentation. The fixed-step motor owns movement; animation and the camera consume its output. Capture position, velocity, heading and flap/glide/dive/perch mode. Player and future AI intent can use the same movement concepts with authored species limits.
 
+On 2026-09-06 the user approved the general flight foundation and clarified that one shared flight setting is enough initially. Bird/flock-dependent parameters come later. Resolve shared settings into per-step value snapshots; keep context neutral today and avoid committing a species/flock aggregation policy ahead of review.
+
 Prove comfortable steering, flight, camera and contact with the single bird first. Do not fabricate package locks or engine test results before the chosen editor is installed and the project exists.
 
 ## Living flock

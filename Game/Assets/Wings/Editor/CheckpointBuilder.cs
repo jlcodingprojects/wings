@@ -22,7 +22,7 @@ namespace Wings.Editor
         {
             CreateScene();
             Validate();
-            string output = Path.Combine(Repository, "Builds/Checkpoint1A/Wings.exe");
+            string output = Path.Combine(Repository, "Builds/Checkpoint1B/Wings.exe");
             Directory.CreateDirectory(Path.GetDirectoryName(output));
             var report = BuildPipeline.BuildPlayer(new BuildPlayerOptions
             {
@@ -83,7 +83,7 @@ namespace Wings.Editor
             EditorSettings.serializationMode = SerializationMode.ForceText;
             PlayerSettings.companyName = "Wings Study";
             PlayerSettings.productName = "Wings - Flight Study";
-            PlayerSettings.bundleVersion = "0.1.0-checkpoint1a";
+            PlayerSettings.bundleVersion = "0.2.0-checkpoint1b";
             PlayerSettings.SetScriptingBackend(UnityEditor.Build.NamedBuildTarget.Standalone, ScriptingImplementation.Mono2x);
             PlayerSettings.SetUseDefaultGraphicsAPIs(BuildTarget.StandaloneWindows64, false);
             PlayerSettings.SetGraphicsAPIs(BuildTarget.StandaloneWindows64, new[] { GraphicsDeviceType.Direct3D11 });
@@ -159,14 +159,15 @@ namespace Wings.Editor
             bird.profile = assisted;
             bird.transform.position = bird.origin;
             var visual = new GameObject("Visual bank").transform;
-            visual.SetParent(bird.transform, false); bird.visual = visual;
+            visual.SetParent(bird.transform, false);
+            var presentation = bird.gameObject.AddComponent<BirdPresentation>(); presentation.motor = bird; presentation.visual = visual;
             BirdPart("Body", PrimitiveType.Sphere, Vector3.zero, new Vector3(0.65f, 0.48f, 1.35f), birdMaterial, visual);
             BirdPart("Breast", PrimitiveType.Sphere, new Vector3(0, -0.1f, 0.26f), new Vector3(0.5f, 0.37f, 0.85f), cream, visual);
             BirdPart("Head", PrimitiveType.Sphere, new Vector3(0, 0.13f, 0.59f), new Vector3(0.48f, 0.43f, 0.5f), birdMaterial, visual);
             BirdPart("Beak", PrimitiveType.Sphere, new Vector3(0, 0.1f, 0.89f), new Vector3(0.16f, 0.13f, 0.32f), gold, visual);
             BirdPart("Tail", PrimitiveType.Cube, new Vector3(0, 0, -0.81f), new Vector3(0.65f, 0.07f, 0.62f), birdMaterial, visual);
-            bird.leftWing = Wing(visual, -1);
-            bird.rightWing = Wing(visual, 1);
+            presentation.leftWing = Wing(visual, -1);
+            presentation.rightWing = Wing(visual, 1);
             var input = bird.gameObject.AddComponent<FlightInput>(); bird.input = input;
             var camera = new GameObject("Flight camera").AddComponent<Camera>();
             camera.tag = "MainCamera"; camera.fieldOfView = 64; camera.farClipPlane = 900;
@@ -240,7 +241,11 @@ namespace Wings.Editor
         {
             string path = Root + "/" + name + ".asset";
             var existing = AssetDatabase.LoadAssetAtPath<FlightProfile>(path);
-            if (existing != null) return existing; // Preserve tuning between scene rebuilds.
+            if (existing != null)
+            {
+                EditorUtility.SetDirty(existing); // Serialize newly added defaults, preserving existing tuning.
+                return existing;
+            }
             var profile = ScriptableObject.CreateInstance<FlightProfile>();
             profile.experiment = experiment; profile.response = response; profile.velocityResponse = velocityResponse; profile.maxBank = bank;
             AssetDatabase.CreateAsset(profile, path); return profile;

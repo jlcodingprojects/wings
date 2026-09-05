@@ -1,0 +1,46 @@
+{
+  "checkpoint": "1B",
+  "date": "2026-09-06",
+  "build": {
+    "result": "Succeeded",
+    "unity": "6000.3.23f1",
+    "backend": "Mono",
+    "graphics": "Direct3D11",
+    "scene": "Assets/Wings/Generated/FlightStudy.unity",
+    "errors": 0,
+    "warnings": 0,
+    "bytes": 164749916
+  },
+  "player": {
+    "unity": "6000.3.23f1",
+    "graphics": "Direct3D11",
+    "device": "NVIDIA GeForce RTX 4070 Ti",
+    "result": "passed",
+    "physicalGamepads": 0,
+    "checks": [
+      "PASS: Scene bootstrap present",
+      "PASS: Graphics-enabled player",
+      "PASS: Synthetic controller reaches input and moves bird",
+      "PASS: Mode B is selectable at runtime",
+      "PASS: Dive increases speed within the configured limit",
+      "PASS: Flapping remains available and release of steering levels the bird",
+      "PASS: Mouse fallback steers and flaps after controller removal",
+      "PASS: Pointer over HUD does not also fly/flap",
+      "PASS: Pause freezes the bird",
+      "PASS: Rendered flight capture written",
+      "PASS: Captures contain visible rendered content"
+    ]
+  },
+  "tests": {
+    "failed": 0,
+    "passed": 17,
+    "total": 17
+  },
+  "capturesInspected": [
+    "checkpoint1b-menu.png",
+    "checkpoint1b-flight.png"
+  ],
+  "sharedContext": "Neutral for all current birds",
+  "humanReview": "General foundation accepted; new dive/recovery pending",
+  "physicalControllerConfirmed": false
+}

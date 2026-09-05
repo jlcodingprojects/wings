@@ -22,7 +22,7 @@ Use assisted forward flight with a fixed-step kinematic motor and swept collisio
 - Flapping is always available. No stalls, stamina depletion or forced precision sequences.
 - Mild wind drift is allowed in Stage 2; it cannot strand the player or invalidate flight assistance.
 
-Expose tuning through a FlightProfile asset rather than hard-coded species-specific controller branches. Initial values are tuned at checkpoint 1B.
+Expose tuning through a FlightProfile asset rather than hard-coded species-specific controller branches. Initially all birds use the same shared defaults. Later bird or flock context can influence resolved flight values without mutating the shared profile or adding player-controller special cases. The general flight foundation was positively reviewed on 2026-09-06; dive tuning and future context rules remain reviewable at their checkpoints.
 
 ## Controls and camera
 

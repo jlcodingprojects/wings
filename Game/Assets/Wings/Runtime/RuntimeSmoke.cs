@@ -33,7 +33,7 @@ namespace Wings
             report = new Report { unity = Application.unityVersion, graphics = SystemInfo.graphicsDeviceType.ToString(), device = SystemInfo.graphicsDeviceName, physicalGamepads = Gamepad.all.Count };
             sandbox = FindFirstObjectByType<FlightSandbox>();
             yield return null;
-            ScreenCapture.CaptureScreenshot(Path.Combine(folder, "checkpoint1a-menu.png"));
+            ScreenCapture.CaptureScreenshot(Path.Combine(folder, "checkpoint1b-menu.png"));
             yield return new WaitForSecondsRealtime(1);
             if (!Check(sandbox != null, "Scene bootstrap present")) yield break;
             if (!Check(SystemInfo.graphicsDeviceType != UnityEngine.Rendering.GraphicsDeviceType.Null, "Graphics-enabled player")) yield break;
@@ -50,6 +50,23 @@ namespace Wings
             sandbox.SwitchExperiment();
             if (!Check(sandbox.bird.profile.experiment == FlightExperiment.Momentum, "Mode B is selectable at runtime")) yield break;
             for (int i = 0; i < 40; i++) yield return null;
+            var originalOrigin = sandbox.bird.origin;
+            sandbox.bird.origin = new Vector3(0, 100, -90);
+            sandbox.ResetFlight();
+            for (int i = 0; i < 110; i++)
+            {
+                InputSystem.QueueStateEvent(pad, new GamepadState { leftStick = Vector2.down });
+                yield return null;
+            }
+            if (!Check(sandbox.bird.State.mode == FlightMode.Dive && sandbox.bird.State.velocity.magnitude > sandbox.bird.Tuning.cruiseSpeed + 1 && sandbox.bird.State.velocity.magnitude <= sandbox.bird.Tuning.MaximumSpeed + 0.01f, "Dive increases speed within the configured limit")) yield break;
+            for (int i = 0; i < 160; i++)
+            {
+                InputSystem.QueueStateEvent(pad, new GamepadState { rightTrigger = 1 });
+                yield return null;
+            }
+            if (!Check(sandbox.bird.State.mode == FlightMode.Flap && Mathf.Abs(sandbox.bird.State.pitch) < 2, "Flapping remains available and release of steering levels the bird")) yield break;
+            sandbox.bird.origin = originalOrigin;
+            sandbox.ResetFlight();
             InputSystem.RemoveDevice(pad); pad = null;
             mouse = InputSystem.AddDevice<Mouse>();
             var mouseState = new MouseState { position = new Vector2(Screen.width * 0.62f, Screen.height * 0.55f) }.WithButton(MouseButton.Left);
@@ -67,10 +84,10 @@ namespace Wings
             sandbox.ResetFlight();
             InputSystem.QueueStateEvent(mouse, new MouseState { position = new Vector2(Screen.width / 2f, Screen.height / 2f) });
             for (int i = 0; i < 90; i++) yield return null;
-            ScreenCapture.CaptureScreenshot(Path.Combine(folder, "checkpoint1a-flight.png"));
+            ScreenCapture.CaptureScreenshot(Path.Combine(folder, "checkpoint1b-flight.png"));
             yield return new WaitForSecondsRealtime(1);
-            if (!Check(File.Exists(Path.Combine(folder, "checkpoint1a-flight.png")), "Rendered flight capture written")) yield break;
-            if (!Check(HasVisibleImage(Path.Combine(folder, "checkpoint1a-flight.png")) && HasVisibleImage(Path.Combine(folder, "checkpoint1a-menu.png")), "Captures contain visible rendered content")) yield break;
+            if (!Check(File.Exists(Path.Combine(folder, "checkpoint1b-flight.png")), "Rendered flight capture written")) yield break;
+            if (!Check(HasVisibleImage(Path.Combine(folder, "checkpoint1b-flight.png")) && HasVisibleImage(Path.Combine(folder, "checkpoint1b-menu.png")), "Captures contain visible rendered content")) yield break;
             Finish(true);
         }
 

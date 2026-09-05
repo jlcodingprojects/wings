@@ -39,8 +39,8 @@ The old eight-species/two-predator MVP, stamina, camera destabilisation, exclusi
 
 | ID | Name | Implementation | Human decision |
 |---|---|---|---|
-| 1A | Setup and control | Windows A/B prototype built; toolchain, 11 tests and visible player checks pass; physical-controller check pending | Pending |
-| 1B | Flight feel | Pending | Pending |
+| 1A | Setup and control | Windows A/B prototype built and checked; physical-controller verification remains unconfirmed | General flight accepted; user authorised continued implementation |
+| 1B | Flight feel | Dive, mode presentation and shared context-ready tuning implemented; 17 tests and visible player checks pass | Pending review of this increment |
 | 1C | Camera and contact | Pending | Pending |
 | 1D | Flight playground | Pending | Pending |
 | 2A | Valley exploration | Pending | Pending |
@@ -59,7 +59,14 @@ The old eight-species/two-predator MVP, stamina, camera destabilisation, exclusi
 - Delivered: switchable assisted/momentum single-bird flight, editable session tuning, stable follow/orbit camera, mouse/controller input and a temporary comparison space.
 - Evidence: zero build errors/warnings, 11 edit-mode passes, visible Windows player smoke pass, inspected menu/flight captures, Blender scale/orientation/animation validation. See `Setup/checkpoint1a-evidence.json` and `CHECKPOINT_1A_REVIEW.md`.
 - Limitations: no physical controller connected during automated tests; no human flight-feel acceptance; no perching/flock/predator implementation. All movement and art remain provisional.
-- Decision: pending user playtest feedback. No automatic advance to 1B or flock production.
+- Subsequent feedback: user reports the general flight is great, can tune the parameters and authorises continuing the plan. This accepts the general flight foundation, without choosing a final A/B model or claiming a physical-controller test.
+
+## Shared flight tuning decision — 2026-09-06
+
+- User direction: flight parameters will later depend on the bird or flock; initially one setting is sufficient for all birds.
+- Use the same shared defaults for all current birds. Retain A/B experiments for comparison; these are not separate species settings.
+- Each simulation step consumes a resolved value snapshot. A neutral context preserves the existing behaviour; future bird/flock systems may supply influences without editing shared profile assets. Exact influences and their rules remain provisional.
+- 1B adds bounded dive speed and simulation-driven presentation while preserving level-flight steering. No species differentiation or flock mechanics are introduced at this checkpoint.
 
 ## Review entry template (for subsequent checkpoints)
 

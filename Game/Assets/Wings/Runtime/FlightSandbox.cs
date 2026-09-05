@@ -47,7 +47,7 @@ namespace Wings
         public bool PointerOverUI(Vector2 point) => input.Paused || Header.Contains(point) || Buttons.Contains(point);
         public void ControllerTune(int row, int direction)
         {
-            tuningIndex = (tuningIndex + row + 6) % 6;
+            tuningIndex = (tuningIndex + row + 8) % 8;
             if (direction == 0) return;
             var p = bird.profile;
             switch (tuningIndex)
@@ -57,7 +57,9 @@ namespace Wings
                 case 2: p.response = Mathf.Clamp(p.response + direction * 0.5f, 0.5f, 8); break;
                 case 3: flightCamera.distance = Mathf.Clamp(flightCamera.distance + direction, 5, 14); break;
                 case 4: input.sensitivity = Mathf.Clamp(input.sensitivity + direction * 0.1f, 0.5f, 1.8f); break;
-                case 5: input.invertY = !input.invertY; break;
+                case 5: p.diveBoost = Mathf.Clamp(p.diveBoost + direction, 0, 15); break;
+                case 6: p.flapBoost = Mathf.Clamp(p.flapBoost + direction, 0, 12); break;
+                case 7: input.invertY = !input.invertY; break;
             }
         }
 
@@ -89,7 +91,7 @@ namespace Wings
             GUILayout.BeginArea(new Rect(36, 29, 315, 100));
             GUILayout.Label("WINGS  /  FLIGHT STUDY", heading);
             GUILayout.Label(ExperimentName + "   ·   " + (input.UsingGamepad ? "Controller" : "Mouse / keyboard"), body);
-            GUILayout.Label($"{bird.State.velocity.magnitude:0.0} m/s   ·   altitude {bird.State.position.y:0} m", small);
+            GUILayout.Label($"{bird.State.mode}   ·   {bird.State.velocity.magnitude:0.0} m/s   ·   altitude {bird.State.position.y:0} m", small);
             GUILayout.Label("Early experiment — movement and art are provisional", small);
             GUILayout.EndArea();
             GUILayout.BeginArea(Buttons);
@@ -116,7 +118,7 @@ namespace Wings
             GUILayout.BeginArea(new Rect(Panel.x + 30, Panel.y + 22, Panel.width - 60, Panel.height - 44));
             scroll = GUILayout.BeginScrollView(scroll);
             GUILayout.Label("Find the feeling of flight", title);
-            GUILayout.Label("One bird. Two starting points. Neither is a final design.", body);
+            GUILayout.Label("Shared flight defaults. Bird and flock differences come later.", body);
             GUILayout.Space(12);
             GUILayout.BeginHorizontal();
             if (GUILayout.Button(selected == 0 ? "● A  Assisted" : "A  Assisted", button) && selected != 0) SwitchExperiment();
@@ -130,7 +132,9 @@ namespace Wings
             profile.response = Slider("Response", profile.response, 0.5f, 8, "", 2);
             flightCamera.distance = Slider("Camera distance", flightCamera.distance, 5, 14, "m", 3);
             input.sensitivity = Slider("Steering sensitivity", input.sensitivity, 0.5f, 1.8f, "", 4);
-            input.invertY = GUILayout.Toggle(input.invertY, (input.UsingGamepad && tuningIndex == 5 ? "> " : "") + "Invert climb / descent");
+            profile.diveBoost = Slider("Dive speed boost", profile.diveBoost, 0, 15, "m/s", 5);
+            profile.flapBoost = Slider("Flap speed boost", profile.flapBoost, 0, 12, "m/s", 6);
+            input.invertY = GUILayout.Toggle(input.invertY, (input.UsingGamepad && tuningIndex == 7 ? "> " : "") + "Invert climb / descent");
             GUILayout.Space(10);
             GUILayout.Label("Controller", heading);
             GUILayout.Label("Left stick: steer / climb    RT: flap    Right stick: look\nA: resume    Y: compare    X: reset    Start: pause\nD-pad while paused: up/down selects tuning, left/right adjusts", body);

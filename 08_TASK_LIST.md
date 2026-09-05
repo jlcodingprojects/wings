@@ -1,6 +1,6 @@
 # 08 — Checkpoint Backlog
 
-Checkpoint 1A has a built and automatically verified single-bird comparison prototype. Physical-controller checks and human acceptance remain pending. Complete and review one checkpoint at a time. Checkboxes indicate implementation, while human acceptance is recorded separately in the decision log.
+The user accepted the general 1A flight foundation and authorised continued implementation. Checkpoint 1B is implemented and automatically verified, awaiting feedback on dive/recovery. Physical-controller verification remains unconfirmed. Complete and review one checkpoint at a time.
 
 ## Stage 1
 
@@ -8,20 +8,23 @@ Checkpoint 1A has a built and automatically verified single-bird comparison prot
 - [x] Complete download verification and prepare manual installation instructions.
 - [x] User completes installation and authorises subsequent setup/project work.
 - [x] Verify Unity 6000.3.23f1, Blender 4.5.13 LTS, licensing, export/import and automated player smoke tests.
-- [ ] User checks physical-controller input and flight comfort.
+- [x] User reports the general flight is great.
+- [ ] Confirm physical-controller input/hot-plug; the user's tested input device is unspecified.
 - [x] Create URP project and commit resolved package versions.
 - [x] Configure Git ignore/LFS and source asset conventions.
 - [x] Add bootstrap, placeholder bird, initial space and two switchable kinematic steering experiments.
 - [x] Keep single-bird flight state independent of player input so flock agents can use the same movement concepts later.
 - [x] Add controller-first input and mouse guide; build and launch Windows player.
 - [x] Prepare review packet in CHECKPOINT_1A_REVIEW.md.
-- [ ] Receive human feedback before advancing.
+- [x] Receive positive flight feedback and authorisation to advance to 1B.
 
 ### 1B — Flight feel
-- [ ] Implement flap/glide/dive and comfortable neutral recovery.
-- [ ] Separate motor state from visual banking and wing animation.
-- [ ] Expose tuning and verify comparable behaviour at 30/60/120 FPS.
-- [ ] Present review packet and await response.
+- [x] Implement bounded flap/glide/dive and neutral recovery for review.
+- [x] Separate motor state from visual banking and wing animation.
+- [x] Expose tuning and compare fixed-step trajectories under 30/60/120 render schedules.
+- [x] Keep shared defaults with neutral context and isolated resolved values for future bird/flock influences.
+- [x] Prepare review packet in CHECKPOINT_1B_REVIEW.md.
+- [ ] Receive feedback on dive/recovery before advancing to 1C.
 
 ### 1C — Camera and contact
 - [ ] Add stable camera, recentering and sensitivity/inversion controls.

@@ -81,5 +81,53 @@ namespace Wings.Tests
             Assert.That(Vector3.Distance(state.position, next.position), Is.LessThan(1));
             Assert.That(next.velocity.magnitude, Is.GreaterThan(5));
         }
+
+        [TestCase(FlightExperiment.Assisted)] [TestCase(FlightExperiment.Momentum)]
+        public void DiveIsBoundedAndDoesNotIncreaseTurningAuthority(FlightExperiment mode)
+        {
+            profile.experiment = mode;
+            var diving = State; var level = State;
+            var tuning = new FlightTuning(profile, FlightContext.Shared);
+            for (int i = 0; i < 400; i++)
+            {
+                diving = FlightSimulation.Step(diving, new FlightIntent { steer = new Vector2(0.3f, -0.8f), flap = 1 }, tuning, 0.02f);
+                level = FlightSimulation.Step(level, new FlightIntent { steer = new Vector2(0.3f, 0), flap = 1 }, tuning, 0.02f);
+                Assert.That(diving.velocity.magnitude, Is.LessThanOrEqualTo(tuning.MaximumSpeed + 0.001f));
+            }
+            Assert.That(diving.mode, Is.EqualTo(FlightMode.Dive));
+            Assert.That(diving.velocity.magnitude, Is.GreaterThan(level.velocity.magnitude + 2));
+            Assert.That(diving.yawRate, Is.EqualTo(level.yawRate).Within(0.001f));
+            for (int i = 0; i < 500; i++) diving = FlightSimulation.Step(diving, default, tuning, 0.02f);
+            Assert.That(diving.mode, Is.EqualTo(FlightMode.Glide));
+            Assert.That(diving.velocity.magnitude, Is.EqualTo(profile.cruiseSpeed).Within(0.05f));
+        }
+
+        [Test] public void ContextResolutionIsIsolatedAndDoesNotMutateSharedDefaults()
+        {
+            var normal = new FlightTuning(profile, FlightContext.Shared);
+            var influenced = new FlightTuning(profile, new FlightContext(0.8f, 1.2f));
+            Assert.That(influenced.cruiseSpeed, Is.EqualTo(normal.cruiseSpeed * 0.8f).Within(0.001f));
+            Assert.That(influenced.turnRate, Is.EqualTo(normal.turnRate * 1.2f).Within(0.001f));
+            Assert.That(profile.cruiseSpeed, Is.EqualTo(normal.cruiseSpeed));
+            profile.cruiseSpeed += 5;
+            Assert.That(normal.cruiseSpeed, Is.EqualTo(14));
+            Assert.That(new FlightTuning(profile, default).cruiseSpeed, Is.EqualTo(profile.cruiseSpeed));
+        }
+
+        [TestCase(30)] [TestCase(60)] [TestCase(120)]
+        public void DiveFlapAndRecoverySequenceMatchesAtDifferentRenderSchedules(int fps)
+        {
+            FlightIntent Intent(int step) => step < 100 ? new FlightIntent { flap = 1 } : step < 220 ? new FlightIntent { steer = new Vector2(0.3f, -0.8f) } : default;
+            var expected = State; var actual = State;
+            for (int i = 0; i < 500; i++) expected = FlightSimulation.Step(expected, Intent(i), profile, 0.02f);
+            double accumulator = 0; int steps = 0;
+            for (int frame = 0; frame < fps * 10; frame++)
+            {
+                accumulator += 1.0 / fps;
+                while (accumulator + 1e-9 >= 0.02) { actual = FlightSimulation.Step(actual, Intent(steps++), profile, 0.02f); accumulator -= 0.02; }
+            }
+            Assert.That(Vector3.Distance(expected.position, actual.position), Is.LessThan(0.001f));
+            Assert.That(actual.mode, Is.EqualTo(FlightMode.Glide));
+        }
     }
 }

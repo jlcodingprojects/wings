@@ -4,7 +4,7 @@ A compact Windows game about flight and flock dynamics: initially fly a single b
 
 ## Status
 
-The first Windows single-bird prototype offers switchable assisted and momentum flight experiments. Toolchain checks, 11 edit-mode tests and the visible player smoke test pass; menu and flight captures were inspected on 2026-09-06. Human review and physical-controller checks are pending. See the [checkpoint 1A playtest guide](CHECKPOINT_1A_REVIEW.md), [installation record](12_INSTALLATION_CHECKLIST.md) and [flight/flock context](14_CORE_FLIGHT_AND_FLOCK_CONTEXT.md). No flight model or visual style has been accepted.
+The user accepted the general flight foundation. Checkpoint 1B adds bounded dive speed, simulation-driven wing presentation and shared settings prepared for future bird/flock context. Seventeen tests and the visible player smoke test pass. See the [checkpoint 1B playtest guide](CHECKPOINT_1B_REVIEW.md), [installation record](12_INSTALLATION_CHECKLIST.md) and [flight/flock context](14_CORE_FLIGHT_AND_FLOCK_CONTEXT.md). Dive/recovery feedback and physical-controller verification remain pending; species/flock influences and visual style remain provisional.
 
 ## Committed build
 

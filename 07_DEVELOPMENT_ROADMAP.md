@@ -4,7 +4,7 @@ Implementation begins only after the documentation pass. Follow checkpoints in o
 
 ## Stage 1 — Initial gameplay
 
-Goal: flying a single bird is pleasant in a simple 3D landscape. Establish flight state and movement boundaries that will also support individually simulated flock birds. Setup begins with downloads only; installations require user approval.
+Goal: flying a single bird is pleasant in a simple 3D landscape. Establish flight state and movement boundaries that will also support individually simulated flock birds. Setup is complete; the user accepted the general flight foundation and authorised continuing. All birds initially share flight defaults; later bird/flock influences remain reviewable.
 
 | Checkpoint | Deliverable | Review |
 |---|---|---|

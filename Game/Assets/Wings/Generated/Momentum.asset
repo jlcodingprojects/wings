@@ -21,3 +21,5 @@ MonoBehaviour:
   maxBank: 52
   glideDescent: 0.35
   velocityResponse: 1.8
+  diveBoost: 8
+  diveStartAngle: 10
