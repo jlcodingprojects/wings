@@ -1,0 +1,56 @@
+{
+  "checkpoint": "1C",
+  "date": "2026-09-06",
+  "build": {
+    "result": "Succeeded",
+    "unity": "6000.3.23f1",
+    "backend": "Mono",
+    "graphics": "Direct3D11",
+    "scene": "Assets/Wings/Generated/FlightStudy.unity",
+    "errors": 0,
+    "warnings": 0,
+    "bytes": 164772376
+  },
+  "player": {
+    "unity": "6000.3.23f1",
+    "graphics": "Direct3D11",
+    "device": "NVIDIA GeForce RTX 4070 Ti",
+    "result": "passed",
+    "physicalGamepads": 0,
+    "checks": [
+      "PASS: Scene bootstrap present",
+      "PASS: Graphics-enabled player",
+      "PASS: Synthetic controller reaches input and moves bird",
+      "PASS: Mode B is selectable at runtime",
+      "PASS: Dive increases speed within the configured limit",
+      "PASS: Flapping remains available and release of steering levels the bird",
+      "PASS: Controller resume does not also request landing",
+      "PASS: Controller requests nearby landing",
+      "PASS: Second action cancels approach",
+      "PASS: Assisted landing reaches a safe perch",
+      "PASS: Controller takeoff returns to free flight",
+      "PASS: Water contact returns bird to last safe perch",
+      "PASS: Mouse fallback steers and flaps after controller removal",
+      "PASS: Pointer over HUD does not also fly/flap",
+      "PASS: Pointer over landing action does not also fly/flap",
+      "PASS: Mouse orbit suspends pointer steering",
+      "PASS: Pause freezes the bird",
+      "PASS: Rendered flight capture written",
+      "PASS: Captures contain visible rendered content"
+    ]
+  },
+  "tests": {
+    "failed": 0,
+    "passed": 23,
+    "total": 23
+  },
+  "capturesInspected": [
+    "checkpoint1c-menu.png",
+    "checkpoint1c-flight.png",
+    "checkpoint1c-perched.png"
+  ],
+  "sharedContext": "Neutral for all current birds",
+  "humanReview": "User authorised 1C; landing and camera review pending",
+  "physicalControllerConfirmed": false,
+  "verificationNote": "An overlapping editor/player run failed its initial input check; the subsequent standalone visible player run passed all checks."
+}

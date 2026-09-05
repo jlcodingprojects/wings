@@ -15,7 +15,8 @@ namespace Wings
         Vector2 scroll;
         public string ExperimentName => selected == 0 ? "A  /  Assisted" : "B  /  Momentum";
         public Rect Header => new Rect(20, 20, 345, 115);
-        public Rect Buttons => new Rect(Screen.width - 310, 20, 290, 46);
+        public Rect Buttons => new Rect(Screen.width - 460, 20, 440, 46);
+        public Rect PerchButton => new Rect(Screen.width / 2f - 165, Screen.height - 124, 330, 40);
         Rect Panel => new Rect((Screen.width - 620) / 2f, Mathf.Max(30, (Screen.height - 700) / 2f), 620, Mathf.Min(700, Screen.height - 60));
 
         void Awake()
@@ -43,11 +44,11 @@ namespace Wings
             selected = 1 - selected;
             bird.profile = selected == 0 ? assisted : momentum;
         }
-        public void ResetFlight() { bird.ResetFlight(); flightCamera.Recenter(); }
-        public bool PointerOverUI(Vector2 point) => input.Paused || Header.Contains(point) || Buttons.Contains(point);
+        public void ResetFlight() { bird.ResetFlight(); flightCamera.Recenter(true); }
+        public bool PointerOverUI(Vector2 point) => input.Paused || Header.Contains(point) || Buttons.Contains(point) || PerchButton.Contains(point);
         public void ControllerTune(int row, int direction)
         {
-            tuningIndex = (tuningIndex + row + 8) % 8;
+            tuningIndex = (tuningIndex + row + 11) % 11;
             if (direction == 0) return;
             var p = bird.profile;
             switch (tuningIndex)
@@ -60,6 +61,9 @@ namespace Wings
                 case 5: p.diveBoost = Mathf.Clamp(p.diveBoost + direction, 0, 15); break;
                 case 6: p.flapBoost = Mathf.Clamp(p.flapBoost + direction, 0, 12); break;
                 case 7: input.invertY = !input.invertY; break;
+                case 8: input.lookSensitivity = Mathf.Clamp(input.lookSensitivity + direction * 0.1f, 0.3f, 2); break;
+                case 9: input.invertLookY = !input.invertLookY; break;
+                case 10: flightCamera.recenterRate = Mathf.Clamp(flightCamera.recenterRate + direction * 0.2f, 0.3f, 3); break;
             }
         }
 
@@ -98,18 +102,21 @@ namespace Wings
             GUILayout.BeginHorizontal();
             if (GUILayout.Button(input.Paused ? "Resume" : "Pause / tune", button)) TogglePause();
             if (GUILayout.Button("Reset bird", button)) ResetFlight();
+            if (GUILayout.Button("Recenter", button)) flightCamera.Recenter();
             GUILayout.EndHorizontal();
             GUILayout.EndArea();
 
             if (!input.Paused)
             {
+                if (GUI.Button(PerchButton, bird.ActionLabel, button)) bird.RequestPerchAction();
+                GUI.Label(new Rect(Screen.width / 2f - 350, Screen.height - 153, 700, 28), string.IsNullOrEmpty(input.DeviceNotice) ? bird.Status : input.DeviceNotice, body);
                 Vector2 centre = new Vector2(Screen.width / 2f, Screen.height / 2f);
                 Color guide = new Color(0.93f, 0.96f, 0.93f, 0.65f);
                 Fill(new Rect(centre.x - 10, centre.y, 20, 1), guide);
                 Fill(new Rect(centre.x, centre.y - 10, 1, 20), guide);
                 GUILayout.BeginArea(new Rect(25, Screen.height - 72, Screen.width - 50, 55));
-                GUILayout.Label("Fly towards the open arches. Turn back whenever you like.", body);
-                GUILayout.Label("TAB / Y  compare modes     ESC / Start  pause     R / X  reset     Outer boundary returns you safely", small);
+                GUILayout.Label("Find a marked roost. A / E or the Land button assists your approach.", body);
+                GUILayout.Label("TAB / Y  compare     ESC / Start  pause     R / X  reset     C / right stick press  recenter     Water returns you to safety", small);
                 GUILayout.EndArea();
                 return;
             }
@@ -135,11 +142,14 @@ namespace Wings
             profile.diveBoost = Slider("Dive speed boost", profile.diveBoost, 0, 15, "m/s", 5);
             profile.flapBoost = Slider("Flap speed boost", profile.flapBoost, 0, 12, "m/s", 6);
             input.invertY = GUILayout.Toggle(input.invertY, (input.UsingGamepad && tuningIndex == 7 ? "> " : "") + "Invert climb / descent");
+            input.lookSensitivity = Slider("Look sensitivity", input.lookSensitivity, 0.3f, 2, "", 8);
+            input.invertLookY = GUILayout.Toggle(input.invertLookY, (input.UsingGamepad && tuningIndex == 9 ? "> " : "") + "Invert camera look");
+            flightCamera.recenterRate = Slider("Camera recenter", flightCamera.recenterRate, 0.3f, 3, "", 10);
             GUILayout.Space(10);
             GUILayout.Label("Controller", heading);
-            GUILayout.Label("Left stick: steer / climb    RT: flap    Right stick: look\nA: resume    Y: compare    X: reset    Start: pause\nD-pad while paused: up/down selects tuning, left/right adjusts", body);
+            GUILayout.Label("Left stick: steer / climb    RT: flap    Right stick: look\nA: land / cancel / take off    B: cancel approach / back\nY: compare    X: reset    Start: pause    A: resume menu\nD-pad while paused selects / adjusts tuning. Press right stick to recenter.", body);
             GUILayout.Label("Mouse", heading);
-            GUILayout.Label("Move around the centre guide to steer. Hold left to flap; release to glide. Hold right and drag to look. WASD + Space also work.", body);
+            GUILayout.Label("Move around the centre guide to steer. Hold left to flap; release to glide. Hold right to look. Click Land / Take off or press E. C recentres. WASD + Space also work.", body);
             GUILayout.Space(8);
             if (GUILayout.Button("Fly  /  Resume", button)) TogglePause();
             GUILayout.BeginHorizontal();
@@ -148,6 +158,7 @@ namespace Wings
                 JsonUtility.FromJsonOverwrite(JsonUtility.ToJson(assistedAsset), assisted);
                 JsonUtility.FromJsonOverwrite(JsonUtility.ToJson(momentumAsset), momentum);
                 flightCamera.distance = 8; input.sensitivity = 1; input.invertY = false;
+                input.lookSensitivity = 1; input.invertLookY = false; flightCamera.recenterRate = 1.2f;
             }
             if (GUILayout.Button("Quit", button)) Application.Quit();
             GUILayout.EndHorizontal();

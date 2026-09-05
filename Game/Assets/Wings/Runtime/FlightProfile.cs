@@ -3,7 +3,7 @@ using UnityEngine;
 namespace Wings
 {
     public enum FlightExperiment { Assisted, Momentum }
-    public enum FlightMode { Glide, Flap, Dive }
+    public enum FlightMode { Glide, Flap, Dive, Approach, Perched, Takeoff }
 
     [CreateAssetMenu(menuName = "Wings/Flight experiment")]
     public sealed class FlightProfile : ScriptableObject

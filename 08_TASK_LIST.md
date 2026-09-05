@@ -1,6 +1,6 @@
 # 08 — Checkpoint Backlog
 
-The user accepted the general 1A flight foundation and authorised continued implementation. Checkpoint 1B is implemented and automatically verified, awaiting feedback on dive/recovery. Physical-controller verification remains unconfirmed. Complete and review one checkpoint at a time.
+The user accepted the general 1A flight foundation and authorised continued implementation. The user authorised advancing from 1B; checkpoint 1C is implemented and awaiting gameplay review. Physical-controller verification remains unconfirmed. Complete and review one checkpoint at a time.
 
 ## Stage 1
 
@@ -24,13 +24,13 @@ The user accepted the general 1A flight foundation and authorised continued impl
 - [x] Expose tuning and compare fixed-step trajectories under 30/60/120 render schedules.
 - [x] Keep shared defaults with neutral context and isolated resolved values for future bird/flock influences.
 - [x] Prepare review packet in CHECKPOINT_1B_REVIEW.md.
-- [ ] Receive feedback on dive/recovery before advancing to 1C.
+- [x] User authorises continuing to 1C; detailed dive feedback remains open.
 
 ### 1C — Camera and contact
-- [ ] Add stable camera, recentering and sensitivity/inversion controls.
-- [ ] Add swept collisions, deflection and safe recovery.
-- [ ] Add assisted approach, cancellation, perching and takeoff.
-- [ ] Verify both input paths and UI input consumption.
+- [x] Add stable camera, recentering and sensitivity/inversion controls.
+- [x] Add swept collisions, deflection and safe recovery.
+- [x] Add assisted approach, cancellation, perching and takeoff.
+- [x] Verify both input paths and UI input consumption.
 - [ ] Present review packet and await response.
 
 ### 1D — Flight playground

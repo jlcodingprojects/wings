@@ -33,7 +33,7 @@ namespace Wings
             report = new Report { unity = Application.unityVersion, graphics = SystemInfo.graphicsDeviceType.ToString(), device = SystemInfo.graphicsDeviceName, physicalGamepads = Gamepad.all.Count };
             sandbox = FindFirstObjectByType<FlightSandbox>();
             yield return null;
-            ScreenCapture.CaptureScreenshot(Path.Combine(folder, "checkpoint1b-menu.png"));
+            ScreenCapture.CaptureScreenshot(Path.Combine(folder, "checkpoint1c-menu.png"));
             yield return new WaitForSecondsRealtime(1);
             if (!Check(sandbox != null, "Scene bootstrap present")) yield break;
             if (!Check(SystemInfo.graphicsDeviceType != UnityEngine.Rendering.GraphicsDeviceType.Null, "Graphics-enabled player")) yield break;
@@ -67,6 +67,34 @@ namespace Wings
             if (!Check(sandbox.bird.State.mode == FlightMode.Flap && Mathf.Abs(sandbox.bird.State.pitch) < 2, "Flapping remains available and release of steering levels the bird")) yield break;
             sandbox.bird.origin = originalOrigin;
             sandbox.ResetFlight();
+            InputSystem.QueueStateEvent(pad, new GamepadState());
+            yield return null;
+            sandbox.input.Paused = true;
+            yield return PressAction();
+            if (!Check(!sandbox.input.Paused && sandbox.bird.CurrentActivity == BirdMotor.Activity.Flying, "Controller resume does not also request landing")) yield break;
+            yield return PressAction();
+            if (!Check(sandbox.bird.CurrentActivity == BirdMotor.Activity.Approach, "Controller requests nearby landing")) yield break;
+            yield return PressAction();
+            if (!Check(sandbox.bird.CurrentActivity == BirdMotor.Activity.Flying, "Second action cancels approach")) yield break;
+            yield return PressAction();
+            yield return new WaitForSeconds(2.6f);
+            if (!Check(sandbox.bird.CurrentActivity == BirdMotor.Activity.Perched && sandbox.bird.LastSafePerch != null, "Assisted landing reaches a safe perch")) yield break;
+            ScreenCapture.CaptureScreenshot(Path.Combine(folder, "checkpoint1c-perched.png"));
+            yield return new WaitForSecondsRealtime(1);
+            yield return PressAction();
+            yield return new WaitForSeconds(1.5f);
+            if (!Check(sandbox.bird.CurrentActivity == BirdMotor.Activity.Flying, "Controller takeoff returns to free flight")) yield break;
+            sandbox.bird.origin = new Vector3(115, 0.9f, 40);
+            sandbox.ResetFlight();
+            int recoveries = sandbox.bird.Recoveries;
+            for (int i = 0; i < 120 && sandbox.bird.Recoveries == recoveries; i++)
+            {
+                InputSystem.QueueStateEvent(pad, new GamepadState { leftStick = Vector2.down });
+                yield return null;
+            }
+            if (!Check(sandbox.bird.Recoveries > recoveries && sandbox.bird.CurrentActivity == BirdMotor.Activity.Perched && sandbox.bird.Status.StartsWith("Water contact"), "Water contact returns bird to last safe perch")) yield break;
+            sandbox.bird.origin = originalOrigin;
+            sandbox.ResetFlight();
             InputSystem.RemoveDevice(pad); pad = null;
             mouse = InputSystem.AddDevice<Mouse>();
             var mouseState = new MouseState { position = new Vector2(Screen.width * 0.62f, Screen.height * 0.55f) }.WithButton(MouseButton.Left);
@@ -76,6 +104,12 @@ namespace Wings
             InputSystem.QueueStateEvent(mouse, new MouseState { position = new Vector2(40, Screen.height - 40) }.WithButton(MouseButton.Left));
             yield return null; yield return null;
             if (!Check(sandbox.input.Intent.flap == 0 && sandbox.input.Intent.steer == Vector2.zero, "Pointer over HUD does not also fly/flap")) yield break;
+            InputSystem.QueueStateEvent(mouse, new MouseState { position = new Vector2(Screen.width / 2f, 104) }.WithButton(MouseButton.Left));
+            yield return null; yield return null;
+            if (!Check(sandbox.input.Intent.flap == 0 && sandbox.input.Intent.steer == Vector2.zero, "Pointer over landing action does not also fly/flap")) yield break;
+            InputSystem.QueueStateEvent(mouse, new MouseState { position = new Vector2(Screen.width * 0.7f, Screen.height / 2f) }.WithButton(MouseButton.Right));
+            yield return null; yield return null;
+            if (!Check(sandbox.input.LookHeld && sandbox.input.Intent.steer == Vector2.zero, "Mouse orbit suspends pointer steering")) yield break;
             sandbox.input.Paused = true;
             var pausedPosition = sandbox.bird.State.position;
             yield return new WaitForSecondsRealtime(0.2f);
@@ -84,11 +118,19 @@ namespace Wings
             sandbox.ResetFlight();
             InputSystem.QueueStateEvent(mouse, new MouseState { position = new Vector2(Screen.width / 2f, Screen.height / 2f) });
             for (int i = 0; i < 90; i++) yield return null;
-            ScreenCapture.CaptureScreenshot(Path.Combine(folder, "checkpoint1b-flight.png"));
+            ScreenCapture.CaptureScreenshot(Path.Combine(folder, "checkpoint1c-flight.png"));
             yield return new WaitForSecondsRealtime(1);
-            if (!Check(File.Exists(Path.Combine(folder, "checkpoint1b-flight.png")), "Rendered flight capture written")) yield break;
-            if (!Check(HasVisibleImage(Path.Combine(folder, "checkpoint1b-flight.png")) && HasVisibleImage(Path.Combine(folder, "checkpoint1b-menu.png")), "Captures contain visible rendered content")) yield break;
+            if (!Check(File.Exists(Path.Combine(folder, "checkpoint1c-flight.png")), "Rendered flight capture written")) yield break;
+            if (!Check(HasVisibleImage(Path.Combine(folder, "checkpoint1c-flight.png")) && HasVisibleImage(Path.Combine(folder, "checkpoint1c-menu.png")), "Captures contain visible rendered content")) yield break;
             Finish(true);
+        }
+
+        IEnumerator PressAction()
+        {
+            InputSystem.QueueStateEvent(pad, new GamepadState().WithButton(GamepadButton.South));
+            yield return null; yield return null;
+            InputSystem.QueueStateEvent(pad, new GamepadState());
+            yield return null; yield return null;
         }
 
         bool Check(bool value, string label)

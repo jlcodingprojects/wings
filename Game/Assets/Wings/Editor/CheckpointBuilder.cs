@@ -22,7 +22,7 @@ namespace Wings.Editor
         {
             CreateScene();
             Validate();
-            string output = Path.Combine(Repository, "Builds/Checkpoint1B/Wings.exe");
+            string output = Path.Combine(Repository, "Builds/Checkpoint1C/Wings.exe");
             Directory.CreateDirectory(Path.GetDirectoryName(output));
             var report = BuildPipeline.BuildPlayer(new BuildPlayerOptions
             {
@@ -83,7 +83,7 @@ namespace Wings.Editor
             EditorSettings.serializationMode = SerializationMode.ForceText;
             PlayerSettings.companyName = "Wings Study";
             PlayerSettings.productName = "Wings - Flight Study";
-            PlayerSettings.bundleVersion = "0.2.0-checkpoint1b";
+            PlayerSettings.bundleVersion = "0.3.0-checkpoint1c";
             PlayerSettings.SetScriptingBackend(UnityEditor.Build.NamedBuildTarget.Standalone, ScriptingImplementation.Mono2x);
             PlayerSettings.SetUseDefaultGraphicsAPIs(BuildTarget.StandaloneWindows64, false);
             PlayerSettings.SetGraphicsAPIs(BuildTarget.StandaloneWindows64, new[] { GraphicsDeviceType.Direct3D11 });
@@ -127,7 +127,11 @@ namespace Wings.Editor
             SaveAsset(sky, "Sky.mat"); RenderSettings.skybox = AssetDatabase.LoadAssetAtPath<Material>(Root + "/Sky.mat");
 
             Primitive("Meadow floor", PrimitiveType.Cube, new Vector3(0, -2, 0), new Vector3(720, 4, 720), grass);
-            Primitive("Lake", PrimitiveType.Cylinder, new Vector3(115, 0.10f, 40), new Vector3(115, 0.1f, 160), water);
+            var lake = Primitive("Lake", PrimitiveType.Cylinder, new Vector3(115, 0.10f, 40), new Vector3(115, 0.1f, 160), water);
+            // A scaled capsule would expand vertically with the lake's width.
+            UnityEngine.Object.DestroyImmediate(lake.GetComponent<Collider>());
+            lake.AddComponent<MeshCollider>().sharedMesh = lake.GetComponent<MeshFilter>().sharedMesh;
+            lake.AddComponent<WaterSurface>();
             var random = new System.Random(1249);
             for (int i = 0; i < 24; i++)
             {
@@ -141,6 +145,7 @@ namespace Wings.Editor
                 float x = -230 + (float)random.NextDouble() * 440;
                 float z = -210 + (float)random.NextDouble() * 450;
                 if (Mathf.Abs(x) < 32 || (x > 48 && x < 185 && z > -50 && z < 130)) continue;
+                if (Vector2.Distance(new Vector2(x, z), new Vector2(-55, 65)) < 15 || Vector2.Distance(new Vector2(x, z), new Vector2(100, 145)) < 15) continue;
                 float height = 6 + (float)random.NextDouble() * 8;
                 Primitive("Tree trunk", PrimitiveType.Cylinder, new Vector3(x, height * 0.3f, z), new Vector3(0.7f, height * 0.3f, 0.7f), trunk);
                 MeshObject("Tree crown", Cone(height * 0.30f, height, 7), new Vector3(x, height * 0.25f, z), leaves, true);
@@ -157,6 +162,8 @@ namespace Wings.Editor
             var momentum = Profile("Momentum", FlightExperiment.Momentum, 1.5f, 1.8f, 52);
             var bird = new GameObject("Player bird").AddComponent<BirdMotor>();
             bird.profile = assisted;
+            bird.perches = new[] { CreatePerch("Meadow roost", new Vector3(0, 13, -55)), CreatePerch("Woodland roost", new Vector3(-55, 18, 65)), CreatePerch("Lakeside roost", new Vector3(100, 10, 145)) };
+            bird.startingPerch = bird.perches[0];
             bird.transform.position = bird.origin;
             var visual = new GameObject("Visual bank").transform;
             visual.SetParent(bird.transform, false);
@@ -222,6 +229,17 @@ namespace Wings.Editor
         }
 
         [Serializable] class ValidationEvidence { public string result, urp; public Vector3 referenceSize, forwardMarker; public int importedClips; public float animationVertexMovement; }
+        static Perch CreatePerch(string name, Vector3 point)
+        {
+            Primitive(name + " platform", PrimitiveType.Cube, point + Vector3.down * 0.8f, new Vector3(7, 0.4f, 5), darkRock);
+            Primitive(name + " support", PrimitiveType.Cylinder, new Vector3(point.x, (point.y - 1) * 0.5f, point.z), new Vector3(1.2f, (point.y - 1) * 0.5f, 1.2f), trunk);
+            var perch = new GameObject(name).AddComponent<Perch>(); perch.displayName = name; perch.transform.position = point;
+            var label = new GameObject(name + " sign").AddComponent<TextMesh>();
+            label.transform.position = point + Vector3.up * 3;
+            label.text = name.ToUpperInvariant(); label.fontSize = 48; label.characterSize = 0.08f;
+            label.anchor = TextAnchor.MiddleCenter; label.alignment = TextAlignment.Center; label.color = new Color(1, 0.86f, 0.48f);
+            return perch;
+        }
         static void SaveAsset(UnityEngine.Object asset, string name)
         {
             string path = Root + "/" + name;

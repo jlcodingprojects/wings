@@ -4,7 +4,7 @@ A compact Windows game about flight and flock dynamics: initially fly a single b
 
 ## Status
 
-The user accepted the general flight foundation. Checkpoint 1B adds bounded dive speed, simulation-driven wing presentation and shared settings prepared for future bird/flock context. Seventeen tests and the visible player smoke test pass. See the [checkpoint 1B playtest guide](CHECKPOINT_1B_REVIEW.md), [installation record](12_INSTALLATION_CHECKLIST.md) and [flight/flock context](14_CORE_FLIGHT_AND_FLOCK_CONTEXT.md). Dive/recovery feedback and physical-controller verification remain pending; species/flock influences and visual style remain provisional.
+Checkpoint 1C adds assisted landing, cancellation, perching, takeoff, swept contact and safe recovery, plus camera controls. Both flight experiments and shared adjustable defaults remain available. See the [checkpoint 1C playtest guide](CHECKPOINT_1C_REVIEW.md). Landing and camera feel await review; physical-controller verification and future bird/flock influences remain open.
 
 ## Committed build
 

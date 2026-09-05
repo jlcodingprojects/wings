@@ -40,8 +40,8 @@ The old eight-species/two-predator MVP, stamina, camera destabilisation, exclusi
 | ID | Name | Implementation | Human decision |
 |---|---|---|---|
 | 1A | Setup and control | Windows A/B prototype built and checked; physical-controller verification remains unconfirmed | General flight accepted; user authorised continued implementation |
-| 1B | Flight feel | Dive, mode presentation and shared context-ready tuning implemented; 17 tests and visible player checks pass | Pending review of this increment |
-| 1C | Camera and contact | Pending | Pending |
+| 1B | Flight feel | Dive, mode presentation and shared context-ready tuning implemented; 17 tests and visible player checks pass | User authorised continuing to 1C; detailed dive feedback remains open |
+| 1C | Camera and contact | Assisted perching, swept contact, safe recovery and camera controls implemented | Pending gameplay review |
 | 1D | Flight playground | Pending | Pending |
 | 2A | Valley exploration | Pending | Pending |
 | 2B | Living flock | Pending | Pending |
@@ -67,6 +67,14 @@ The old eight-species/two-predator MVP, stamina, camera destabilisation, exclusi
 - Use the same shared defaults for all current birds. Retain A/B experiments for comparison; these are not separate species settings.
 - Each simulation step consumes a resolved value snapshot. A neutral context preserves the existing behaviour; future bird/flock systems may supply influences without editing shared profile assets. Exact influences and their rules remain provisional.
 - 1B adds bounded dive speed and simulation-driven presentation while preserving level-flight steering. No species differentiation or flock mechanics are introduced at this checkpoint.
+
+## 1C review packet — 2026-09-06
+
+- User authorised continuing from 1B; no final flight model or species/flock tuning was selected.
+- Build: `0.3.0-checkpoint1c`, `Builds/Checkpoint1C/Wings.exe`.
+- Delivered: adjustable camera look/recentering, swept contact and deflection, validated safe recovery, three temporary perches, assisted approach/cancellation/takeoff and contextual input.
+- Evidence: zero build errors/warnings, 23 edit-mode tests and 19 standalone visible player checks pass. Menu, flight and perched captures inspected. See `Setup/checkpoint1c-evidence.json`.
+- Review pending: assistance timing/control and camera comfort. Physical-controller verification remains open. Next checkpoint is 1D after user feedback.
 
 ## Review entry template (for subsequent checkpoints)
 
