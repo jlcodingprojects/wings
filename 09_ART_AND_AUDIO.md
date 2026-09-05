@@ -1,129 +1,35 @@
-# 09 — Art and Audio Direction
+# 09 — Art and Audio
 
-## Visual identity
+## Provisional direction
 
-The game should feel like:
-- a moving watercolour painting
-- a field journal brought to life
-- a collection of illustrated landscapes
-- a cinematic nature documentary filtered through traditional media
+Soft gouache/watercolour: strong silhouettes, broad painted colour shapes, atmospheric depth and restrained texture. This is a starting direction, not an approved final shader treatment.
 
-## 3D philosophy
+Do not assign unrelated media to each biome. Use one coherent visual language, then vary palette and atmosphere.
 
-Use geometry where it helps:
-- silhouettes
-- cliffs
-- trees
-- rocks
-- architecture
-- birds
+## Stage boundaries
 
-Do not model every surface in detail.
+Stage 1 needs plain materials, a recognisable placeholder bird and simple wing motion.
+Stage 2 needs readable species placeholders, landmarks, weather, time/season cues and functional audio.
+Stage 3 selects and produces the final style.
 
-## Material styles
+At 3A render three treatments of the same small scene with matching geometry, lighting and camera route. Human selection is the dependency for final production. At 3B finish one area and bird to establish the reference before replacing the entire world.
 
-Use a mix of:
-- watercolour
-- gouache
-- ink wash
-- pastel
-- oil-paint texture
+## Production
 
-Each biome can have a dominant medium.
+Finish the player, four companions and hawk with flap, glide, bank and perch animation. Prefer clear silhouette and flight behaviour over facial animation. Reuse rigs where proportions permit, without distorting species identity.
 
-## Painterly rendering
+Keep accepted collision geometry and route boundaries stable during asset replacement. Verify import scale, normals, orientation and animation before bulk exports.
 
-Potential shader features:
-- paper grain
-- pigment variation
-- edge breakup
-- soft colour bleeding
-- low-frequency colour variation
-- atmospheric desaturation
-- hand-painted normal maps
-- subtle outline/ink treatment
+Use object/world-space painted variation as a foundation. Screen-space grain, edge effects and colour bleed must stay subtle and adjustable. Check shimmer and readability during fast movement. Avoid excessive outlines or distracting camera effects.
 
-Avoid excessive toon outlines.
+Review all 16 season/time combinations, rain/snow visibility and wind. Perches, birds and predator warnings must remain distinguishable.
 
-## Weather art
+## Audio and UI
 
-### Sun
-- bright paper texture
-- soft shadows
-- warm atmosphere
+Use Unity AudioMixer layers for wind, environment, wingbeats, species calls and understated music. Functional warning cues appear in Stage 2; final sound production is Stage 3.
 
-### Rain
-- pigment darkening
-- reflective wet surfaces
-- rain curtains
-- mist
+Recruitment combines a species call, flock response and subtle musical accent. Avoid automatic camera motion that compromises control. Predator tension changes ambience/music without a conventional combat track.
 
-### Snow
-- muted palette
-- soft silhouettes
-- snow accumulation
-- atmospheric haze
+Journal, settings, rest and recovery UI support controller and mouse. Include readable text, adjustable audio levels and independent camera sensitivity/inversion. Do not rely solely on audio for threat warning.
 
-### Wind
-- moving vegetation
-- directional particles
-- cloud motion
-- dramatic light
-
-## Seasons
-
-Do not simply recolour foliage.
-
-Change:
-- density
-- ground cover
-- sky
-- cloud types
-- bird populations
-- landmark dressing
-- particle effects
-
-## Bird visual language
-
-Birds should be:
-- readable at distance
-- recognisable by silhouette
-- slightly more detailed than the environment
-- expressive through flight behaviour rather than facial animation
-
-## Audio
-
-Audio should communicate the world without UI.
-
-Use:
-- species-specific calls
-- flock chatter
-- wing flaps
-- wind
-- rain
-- snow ambience
-- distant thunder
-- predator calls
-- environmental reverb
-
-## Dynamic music
-
-Music should respond to:
-- discovery
-- flock growth
-- danger
-- weather
-- time of day
-
-Predator encounters should reduce or distort the music rather than simply play a combat track.
-
-## Signature moment
-
-When a new bird joins:
-- bird call
-- flock responds
-- subtle musical motif
-- camera widens briefly
-- flock formation stabilises
-
-Keep this understated.
+Record source/licence information for any external asset. Paid assets and external generation services are not assumed dependencies.

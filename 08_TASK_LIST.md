@@ -1,157 +1,83 @@
-# 08 — Task List
+# 08 — Checkpoint Backlog
 
-Priority:
-- P0 = blocking/core
-- P1 = MVP
-- P2 = vertical slice
-- P3 = post-MVP
+All gameplay/setup tasks are pending. Complete and review one checkpoint at a time. Checkboxes indicate implementation, while human acceptance is recorded separately in the decision log.
 
-## Foundation
+## Stage 1
 
-- [ ] P0 Create Unity project
-- [ ] P0 Configure Git
-- [ ] P0 Configure CI build
-- [ ] P0 Configure input actions
-- [ ] P0 Create bootstrap scene
-- [ ] P0 Create basic third-person camera
+### 1A — Setup and control
+- [ ] Verify/install pinned Unity 6.3 LTS and Blender 4.5 LTS; complete licensing and smoke tests.
+- [ ] Create URP project and commit resolved package versions.
+- [ ] Configure Git ignore/LFS and source asset conventions.
+- [ ] Add bootstrap, placeholder bird, initial space and basic kinematic steering.
+- [ ] Add controller-first input and mouse guide; build and launch Windows player.
+- [ ] Present review packet and await response.
 
-## Flight
+### 1B — Flight feel
+- [ ] Implement flap/glide/dive and comfortable neutral recovery.
+- [ ] Separate motor state from visual banking and wing animation.
+- [ ] Expose tuning and verify comparable behaviour at 30/60/120 FPS.
+- [ ] Present review packet and await response.
 
-- [ ] P0 Create placeholder bird
-- [ ] P0 Implement steering
-- [ ] P0 Implement flap
-- [ ] P0 Implement glide
-- [ ] P0 Implement dive
-- [ ] P0 Implement stamina
-- [ ] P0 Mouse controls
-- [ ] P0 Controller controls
-- [ ] P1 Flight tuning pass
-- [ ] P1 Camera banking
-- [ ] P1 Wind interaction
+### 1C — Camera and contact
+- [ ] Add stable camera, recentering and sensitivity/inversion controls.
+- [ ] Add swept collisions, deflection and safe recovery.
+- [ ] Add assisted approach, cancellation, perching and takeoff.
+- [ ] Verify both input paths and UI input consumption.
+- [ ] Present review packet and await response.
 
-## Flock
+### 1D — Flight playground
+- [ ] Add slopes, narrow passage, water, obstacles and several perches.
+- [ ] Provide 5–10-minute route and complete ten-minute comfort review.
+- [ ] Record Stage 1 acceptance before proceeding.
 
-- [ ] P0 Implement Boids separation
-- [ ] P0 Implement alignment
-- [ ] P0 Implement cohesion
-- [ ] P0 Implement player following
-- [ ] P0 Implement flock director
-- [ ] P1 Implement regrouping
-- [ ] P1 Add flock LOD
-- [ ] P1 Test 30 birds
-- [ ] P2 Test 100+ visual birds
+## Stage 2
 
-## Recruitment
+### 2A — Valley exploration
+- [ ] Lay out five habitat areas and six landmarks with placeholder assets.
+- [ ] Review scale, sightlines and travel time.
 
-- [ ] P0 Wild bird spawning
-- [ ] P0 Notice player state
-- [ ] P0 Investigate state
-- [ ] P0 Follow state
-- [ ] P0 Join state
-- [ ] P1 Recruitment scoring
-- [ ] P1 Bird journal
-- [ ] P1 Recruitment VFX/audio
+### 2B — Living flock
+- [ ] Implement one species, formation and bounded neighbour steering.
+- [ ] Add recruitment hysteresis, stable membership and cap handling.
+- [ ] Add scattering/recovery without permanent loss.
+- [ ] Verify mixed-speed capability and 30-companion stress scenario.
+- [ ] Review flock behaviour before expanding species.
 
-## Time
+### 2C — Changing world
+- [ ] Add 12-minute day, 24-minute seasons and 96-minute year.
+- [ ] Add perch rest to next dawn/season and pause behaviour.
+- [ ] Add constrained precipitation, independent wind and 30-second transitions.
+- [ ] Add shelter, functional environment feedback and reachability checks.
+- [ ] Review world pacing.
 
-- [ ] P1 Dawn
-- [ ] P1 Day
-- [ ] P1 Dusk
-- [ ] P1 Night
-- [ ] P1 Smooth transitions
-- [ ] P1 Time-dependent species
+### 2D — Gentle tension
+- [ ] Implement single hawk and warning/encounter/cooldown constraints.
+- [ ] Protect opening and safe perches; preserve protection through reload.
+- [ ] Verify regrouping, escape routes and no control penalties.
+- [ ] Review fairness and tension.
 
-## Seasons
+### 2E — Complete loop
+- [ ] Complete four species, six discoveries and journal.
+- [ ] Add versioned saves, backup/recovery and settings persistence.
+- [ ] Add finale unlock/route, continued exploration and functional audio.
+- [ ] Run complete controller-only and mouse-only playthroughs.
+- [ ] Record Stage 2 acceptance.
 
-- [ ] P1 Spring
-- [ ] P1 Summer
-- [ ] P1 Autumn
-- [ ] P1 Winter
-- [ ] P2 Seasonal landscape changes
-- [ ] P2 Seasonal migration
+## Stage 3
 
-## Weather
+### 3A — Style selection
+- [ ] Produce three same-scene visual treatments and obtain selection.
 
-- [ ] P0 Weather state system
-- [ ] P0 Sun
-- [ ] P0 Rain
-- [ ] P0 Snow
-- [ ] P0 Wind
-- [ ] P1 Weather transitions
-- [ ] P1 Wind direction
-- [ ] P1 Visibility
-- [ ] P1 Weather stamina modifiers
-- [ ] P1 Weather confidence modifiers
-- [ ] P1 Bird-specific responses
-- [ ] P2 Storm intensity events
+### 3B — Representative finish
+- [ ] Finish one bird and environment area; verify export/rig/material pipeline.
+- [ ] Obtain approval of the production reference.
 
-## Predators
+### 3C — Full-world treatment
+- [ ] Finish player, four companion species, hawk and environment assets.
+- [ ] Finish seasonal dressing, weather/time lighting, UI, calls and music.
+- [ ] Review all season/time combinations and weather extremes.
 
-- [ ] P1 Predator director
-- [ ] P1 Hawk patrol
-- [ ] P1 Hawk threat behaviour
-- [ ] P1 Eagle threat behaviour
-- [ ] P1 Predator telegraphing
-- [ ] P1 Confidence reduction
-- [ ] P1 Flock scattering
-- [ ] P1 Regroup behaviour
-- [ ] P2 Owl night predator
-
-## World
-
-- [ ] P0 Prototype terrain
-- [ ] P1 Meadow
-- [ ] P1 Lake
-- [ ] P1 Waterfall
-- [ ] P1 Forest
-- [ ] P1 Mountain
-- [ ] P1 Village
-- [ ] P1 Cave shelter
-- [ ] P2 Ruins
-- [ ] P2 Coast
-- [ ] P2 Islands
-
-## Art
-
-- [ ] P1 Painterly prototype shader
-- [ ] P1 Watercolour terrain material
-- [ ] P1 Painterly sky
-- [ ] P1 Bird silhouette prototype
-- [ ] P2 Final bird models
-- [ ] P2 VFX
-- [ ] P2 Weather VFX
-- [ ] P2 Seasonal materials
-
-## Audio
-
-- [ ] P1 Wind ambience
-- [ ] P1 Rain ambience
-- [ ] P1 Snow ambience
-- [ ] P1 Bird calls
-- [ ] P1 Wing sounds
-- [ ] P1 Predator audio
-- [ ] P2 Dynamic music
-- [ ] P2 Region themes
-
-## UI
-
-- [ ] P1 Minimal HUD
-- [ ] P1 Flock size
-- [ ] P1 Stamina indicator
-- [ ] P1 Confidence feedback
-- [ ] P1 Journal
-- [ ] P2 Discovery screen
-- [ ] P2 Accessibility options
-
-## QA
-
-- [ ] P0 Unit tests for weather modifiers
-- [ ] P0 Unit tests for stamina
-- [ ] P0 Unit tests for recruitment
-- [ ] P1 Flock stress test
-- [ ] P1 Predator stress test
-- [ ] P1 4×4×4 weather/time/season matrix test
-- [ ] P1 Controller-only playthrough
-- [ ] P1 Mouse-only playthrough
-- [ ] P2 Performance profiling
-- [ ] P2 Save/load testing
+### 3D — Final playable build
+- [ ] Profile 1440p route with 16 companions/weather and resolve material spikes.
+- [ ] Run full regression and save/recovery scenarios.
+- [ ] Package local Windows build and obtain final acceptance.

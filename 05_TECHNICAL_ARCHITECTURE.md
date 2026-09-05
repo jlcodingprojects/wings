@@ -1,166 +1,52 @@
 # 05 — Technical Architecture
 
-## Recommended stack
+## Stack
 
-### Engine
-Unity, current LTS release.
+Unity 6.3 LTS, C#, URP, Input System, Cinemachine 3, Unity Test Framework, Unity UI and Unity Audio. Windows x64 with DirectX 11 and Mono initially. Blender 4.5 LTS supplies source meshes/rigs and exports. Git with LFS stores source and binary assets.
 
-### Language
-C#.
+Install the latest available 6000.3 patch at setup and pin it in ProjectVersion.txt. Resolve compatible released packages and commit manifest/lock files; no preview dependencies or automatic upgrades. See [installation checklist](12_INSTALLATION_CHECKLIST.md).
 
-### Rendering
-URP with custom painterly shader stack.
+Local builds/tests come first. Hosted CI, third-party editor bridges, DOTS/ECS, middleware audio and paid assets are not baseline dependencies.
 
-### 3D
-Blender.
+## Runtime boundaries
 
-### Audio
-FMOD or Unity Audio for MVP.
+| Producer → consumer | Contract |
+|---|---|
+| Input → flight | Normalised steer, flap, look and land/takeoff intent |
+| Flight → camera/animation/flock | Pose, velocity and movement mode |
+| Environment → birds/flight/presentation | Immutable local time, season, precipitation, wind and shelter sample |
+| Flock director → agents | Membership, formation targets, recruitment and recovery |
+| Progression → persistence | Stable IDs, roster, discoveries, finale state and safe perch |
+| Gameplay → presentation | Discovery, recruitment, threat and environment events |
 
-### Version control
-Git.
+Use ScriptableObjects for authored FlightProfile, BirdDefinition, EnvironmentProfile, LandmarkDefinition and PredatorProfile data. Runtime state must not mutate shared definition assets.
 
-### CI
-GitHub Actions.
+Use a 50 Hz fixed simulation step with interpolated presentation. The kinematic flight motor sweeps its collision volume, handles contacts and produces a separate visual bank target. Camera updates after visual movement. Maintain one clear owner of player motion.
 
-### AI coding
-GitHub Copilot / coding agent + ChatGPT.
+Keep bootstrap, simulation and presentation separate. A single gameplay scene is sufficient; do not introduce world streaming or a general service framework prematurely.
 
-## Core systems
+## Save/load
 
-```text
-GameBootstrap
-├── WorldSimulation
-│   ├── TimeOfDaySystem
-│   ├── SeasonSystem
-│   └── WeatherSystem
-│
-├── FlightSystem
-│   ├── PlayerFlightController
-│   ├── FlightPhysics
-│   └── FlightCamera
-│
-├── FlockSystem
-│   ├── FlockDirector
-│   ├── BoidSimulation
-│   └── BirdAgent
-│
-├── WildlifeSystem
-│   ├── BirdSpawner
-│   ├── PredatorDirector
-│   └── RecruitmentSystem
-│
-├── WorldSystem
-│   ├── Region
-│   ├── Landmark
-│   └── Discovery
-│
-├── ProgressionSystem
-│   ├── PlayerProgression
-│   └── BirdCollection
-│
-└── Presentation
-    ├── PainterlyRenderer
-    ├── VFX
-    ├── Audio
-    └── UI
-```
+Versioned JSON stores discovered species/landmark IDs, roster identities, finale state, environment clock/transitions, safe perch and predator protection/cooldown state. Store settings separately so a new game preserves preferences.
 
-## Data-driven design
+Write a temporary file, finish it, then replace the main save while retaining a backup. On unreadable/corrupt save, attempt the backup and report recovery. Preserve an unsupported newer save instead of overwriting it. If neither copy is usable, offer a fresh game.
 
-Use ScriptableObjects for:
-- BirdDefinition
-- WeatherDefinition
-- SeasonDefinition
-- RegionDefinition
-- LandmarkDefinition
-- PredatorDefinition
-- ProgressionDefinition
+Validate the safe perch and references on load; use the starting perch if needed. Reconstruct companion formation. Do not persist individual agent transforms. Rest-time acceleration does not advance active-play predator timers.
 
-Avoid hard-coding species behaviour.
+## Asset pipeline
 
-## BirdDefinition
+Keep Blender source art outside the imported Assets tree. Export FBX mesh/animation, PNG textures and WAV audio. Establish one metre as the reference scale and verify forward/up orientation with a source-to-engine smoke test.
 
-```csharp
-public class BirdDefinition : ScriptableObject
-{
-    public string Id;
-    public float MaxSpeed;
-    public float Acceleration;
-    public float TurnRate;
-    public float BaseStamina;
-    public float BaseConfidence;
+Preserve Unity .meta files. Track binary source/export assets with Git LFS before production. Ignore Library, Temp, Logs and generated local builds. Author scene/prefab changes with Unity editor APIs rather than handwritten serialised scene edits.
 
-    public float Sociality;
-    public float Curiosity;
-    public float Fear;
-    public float Boldness;
+## Automation
 
-    public WeatherResponse[] WeatherResponses;
-    public TimePreference TimePreference;
-    public SeasonPreference SeasonPreference;
-}
-```
+Project-owned C# editor entrypoints create/validate project assets, run checks and produce Windows builds. Blender Python creates/exports assets and renders previews. Command-line execution is the baseline connection; native GUI automation has not been established.
 
-## World simulation
+Do not run batch and interactive Unity against the same project simultaneously. Local tests must produce exit codes and retained logs; rendered captures require graphics-enabled execution.
 
-Expose one immutable snapshot:
+## Performance and reproducibility
 
-```text
-WorldState
-{
-    TimeOfDay
-    Season
-    Weather
-    WindDirection
-    WindStrength
-    Visibility
-}
-```
+Target 60 FPS at 1440p on the inspected Ryzen 7 5700X / RTX 4070 Ti / 32 GB PC, with 16 companions and weather. Test 30 companions for headroom. Profile repeatable routes and spikes before adding Jobs/Burst.
 
-Birds consume this context rather than querying multiple managers.
-
-## Simulation LOD
-
-### Near
-Full bird AI + animation + collision.
-
-### Mid
-Simplified flock steering.
-
-### Far
-GPU/instanced visual flock or aggregate representation.
-
-### Very far
-Animated silhouettes / particles.
-
-## Determinism
-
-Use seeded random streams where possible so:
-- bugs are reproducible
-- AI tests are stable
-- world behaviour can be replayed
-
-## Save data
-
-Persist:
-- discovered birds
-- discovered landmarks
-- progression level
-- flock roster
-- journal state
-- unlocked regions
-
-Do not persist every individual bird position.
-
-## Performance target
-
-Initial target:
-- 60 FPS
-- stable controller input
-- 30 fully simulated nearby birds
-- hundreds of distant visual birds
-
-Profile before introducing DOTS/ECS.
-
-Only move flock simulation to Jobs/Burst/ECS if profiling demonstrates a need.
+Seeds reproduce initial conditions and random choices, not bit-identical Unity physics. Headless tests do not prove visual quality or GPU performance.

@@ -1,213 +1,41 @@
 # 03 — World, Time, Weather and Seasons
 
-## Simulation model
+## Independent dimensions
 
-The world has four independent dimensions:
+Time, season, precipitation and wind are separate inputs. Rain can be windy; snow can be calm. Do not retain the old sun/rain/snow/wind exclusive state machine.
 
-```text
-TIME OF DAY
-SEASON
-WEATHER
-REGION
-```
+An environment service provides a local immutable sample containing time phase, season blend, precipitation type/intensity, wind vector, visibility and shelter influence. Presentation and birds consume it; they do not coordinate by querying unrelated global managers.
 
-Their combination determines:
-- lighting
-- sky
-- ambience
-- available birds
-- bird behaviour
-- predator activity
-- flight conditions
-- landmark appearance
-- VFX
-- music
+## Clock
 
-## Four times of day
+- One full day/night cycle: 12 minutes of active gameplay.
+- One season: two cycles (24 minutes).
+- One year: four seasons (96 minutes).
+- Order: spring → summer → autumn → winter → spring.
+- Begin at spring dawn.
+- Dawn/day/dusk/night are presentation phases of continuous cycle progress.
+- Pause/menu time does not advance simulation.
 
-### Dawn
-- soft cool-to-warm transition
-- high bird activity
-- migration activity
-- low predator visibility
+At a safe perch, provide controller/mouse actions to advance to next dawn or next season. Resting settles transitions safely and does not count as real elapsed time for predator cooldowns. Save world clock and transition state.
 
-### Day
-- brightest period
-- strongest visibility
-- broadest exploration window
+All availability conditions needed for progression must be reachable by resting; no full-year wait is required.
 
-### Dusk
-- warm light
-- high social/bird activity
-- nocturnal species begin appearing
-- predators become more active
+## Weather and wind
 
-### Night
-- moon/stars
-- restricted visibility
-- nocturnal birds
-- owl predators
-- special landmarks and discoveries
+Precipitation presets: clear, rain, snow. Independent wind has direction and strength. Region and season constrain legal combinations; snow belongs to winter and appropriate high ground.
 
-Do not implement a minute-by-minute clock initially. Use four discrete states with smooth transitions.
+Transitions last at least 30 seconds during normal gameplay and are signalled through clouds, lighting, ambience and distant precipitation. Rest transitions may use a short fade to establish the target context without showing an accelerated storm.
 
-## Four seasons
+Weather affects ambience, formation, shelter-seeking and mild drift. It cannot require a specific species, force stamina failure or block access to essential destinations. Begin with comfortable clear conditions.
 
-### Spring
-- flowers
-- fresh foliage
-- high bird activity
-- many species breeding/nesting behaviours
+No expensive per-bird weather physics. Share regional context and sample local shelter cheaply.
 
-### Summer
-- lush landscape
-- long daylight
-- strong thermal flight
-- warm colour palette
+## Seasons and shelter
 
-### Autumn
-- foliage colour changes
-- migration
-- strong wind opportunities
-- rare migratory birds
+Stage 2 uses simple seasonal palette/dressing swaps and functional weather visuals. Stage 3 supplies coherent foliage, ground cover, water/sky treatment and weather effects.
 
-### Winter
-- snow in appropriate regions
-- shorter day
-- sparse foliage
-- difficult flight for some species
+Shelter landmarks reduce weather influence and enable calm regrouping. Landing and resting must remain usable in every legal environment combination.
 
-## Four weather states
+## Acceptance
 
-### Sun
-Baseline condition.
-- normal stamina
-- good visibility
-- thermals can appear
-
-### Rain
-- reduced visibility
-- wet/painterly surfaces
-- some birds thrive
-- some birds struggle
-- river/waterfall visuals intensify
-
-### Snow
-- reduced visibility
-- cold atmosphere
-- some birds lose stamina quickly
-- snow accumulation changes landmarks
-
-### Wind
-- strongest mechanical weather state
-- creates lift and drift
-- skilled players can exploit it
-- some birds thrive
-- others struggle significantly
-
-## Weather transition
-
-Use a state machine:
-
-```text
-Clear
-  ↕
-Rain
-  ↕
-Wind
-  ↕
-Snow
-```
-
-Transitions should be gradual and visually telegraphed.
-
-Rare major events:
-- storm front
-- blizzard
-- gale
-- clearing after rain
-
-These should not be independent permanent weather types. They are intensity variants.
-
-## Mechanical weather model
-
-Every weather state supplies:
-
-```text
-Visibility
-WindStrength
-WindDirection
-LiftMultiplier
-StaminaMultiplier
-ConfidenceMultiplier
-BirdResponseModifier
-```
-
-## Seasonal modifiers
-
-Each season changes:
-- probability of weather
-- daylight length
-- bird availability
-- landscape material palette
-- migration routes
-- landmark state
-
-## Day/night + weather examples
-
-### Summer dawn + wind
-Ideal for soaring birds.
-
-### Winter night + snow
-Extremely challenging.
-Only specialised birds should perform comfortably.
-
-### Autumn dusk + rain
-Excellent atmosphere and migration encounters.
-
-### Spring day + sun
-Best onboarding conditions.
-
-## Design rule
-
-The simulation should produce different gameplay, not merely different visuals.
-
-A weather change is successful only if the player notices:
-
-> "My flock is behaving differently."
-
-## Shelter
-
-Certain landmarks provide shelter:
-- caves
-- cliffs
-- trees
-- ruins
-- bridges
-
-Shelter reduces weather penalties and helps recover confidence.
-
-## Forecasting
-
-The player should learn weather indirectly through:
-- cloud formations
-- wind animation
-- bird behaviour
-- distant rain curtains
-- lighting
-- audio
-
-Optional late-game ability:
-- experienced birds can predict nearby weather changes.
-
-## Performance
-
-Do not simulate expensive weather physics for every bird.
-
-Use:
-- shared weather context
-- localised noise
-- cheap steering modifiers
-- LOD simulation
-
-Only nearby birds need full individual behaviour.
+Test automatic year wrap, each rest action, save/load during transitions, sheltered versus exposed samples and valid precipitation combinations. Review all 16 season/time combinations and representative weather/wind extremes. Validate the actual configured content availability, not an arbitrary exhaustive 4×4×4 matrix.

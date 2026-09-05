@@ -1,243 +1,55 @@
 # 02 — Flock and Bird AI
 
-## Architecture
+## Structure
 
-Use three layers.
+A FlockDirector owns membership, formation targets, confidence and regrouping. Bird agents execute local steering and animation. Keep authored BirdDefinition assets separate from runtime membership and behavioural state.
 
-```text
-WORLD
-  ↓
-FLOCK DIRECTOR
-  ↓
-INDIVIDUAL BIRD AGENTS
-```
+Start with ordinary C# and bounded neighbour queries. Steering combines target following, separation, alignment, cohesion and terrain/obstacle avoidance. Avoid full rigidbody interactions between companions. Profile before adopting Jobs/Burst or more elaborate simulation LOD.
 
-The Flock Director determines:
-- desired flock centre
-- formation density
-- threat response
-- migration direction
-- regroup behaviour
+The production cap is 16 companions plus the player. Stress-test 30 companions. Distant decorative birds are visual-only and cannot recruit or trigger predator encounters.
 
-Individual agents determine:
-- local steering
-- personality
-- weather response
-- curiosity
-- fear
-- recruitment behaviour
+## Definitions and behaviour
 
-## Boids layer
+Each BirdDefinition has a stable unique ID, display name, habitat/availability, speed and steering limits, silhouette/presentation references, call, sociality, curiosity, boldness and environment response settings. Validate missing references, IDs and invalid ranges.
 
-Use weighted:
-- separation
-- alignment
-- cohesion
-- target following
-- obstacle avoidance
-- terrain avoidance
+Committed species:
+- Sparrow: social introductory recruit in meadow and sheltered landmarks.
+- Swallow: fast aerial motion around open slopes.
+- Kingfisher: water-associated encounters at lake and waterfall.
+- Heron: slower, calm motion near shore and wet ground.
 
-Weights should be configurable per species.
+Use behavioural differences, not statistical upgrades to the player's motor. Keep companions within a compatible speed envelope; formation catch-up assistance prevents slow species becoming permanently stranded.
 
-## Bird data
+## Recruitment
 
-Each species has:
+States: wandering → notice → investigate → parallel flight → joining → companion.
 
-```text
-Species
-BaseSpeed
-MaxSpeed
-Acceleration
-TurnRate
-Stamina
-Confidence
-PreferredAltitude
-WeatherTolerance[4]
-SeasonPreference[4]
-TimePreference[4]
-PredatorFear
-Sociality
-Curiosity
-Boldness
-RecruitmentDifficulty
-FlockRole
-```
+Calm nearby parallel flight builds interest. Use separate enter/leave distances and a grace period so small fluctuations do not reset progress. Telegraph interest with orientation, calls and formation behaviour; no recruit button is required.
 
-## Flock roles
+A bird can enter the roster only once. Stable species discoveries and individual roster entries are separate. At capacity, preserve discoveries but do not silently replace an existing companion; further flock membership waits for a future capacity decision.
 
-Possible roles:
-- Leader
-- Navigator
-- Scout
-- Social
-- Rear guard
-- Weather specialist
-- Predator-sensitive
+## Confidence and recovery
 
-Roles should be emergent initially rather than explicitly assigned.
+Confidence affects formation and temporary scattering only. Scattered companions remain roster members. They regroup through recovery steering or reappear with the flock at a safe perch. Loading reconstructs formation rather than restoring every bird position.
 
-## Recruitment AI
+Do not erase journal discoveries, permanently remove companions, wobble the player's camera or penalise steering.
 
-Wild bird states:
+## Hawk predator
 
-```text
-Wandering
-  ↓
-NoticePlayer
-  ↓
-Observe
-  ↓
-Investigate
-  ↓
-ParallelFlight
-  ↓
-Follow
-  ↓
-JoinFlock
-```
+One type: patrol → assess → telegraph → approach/feint → disengage → cooldown.
 
-Recruitment score can combine:
+Initial constraints:
+- No encounter during the first five minutes of a new game.
+- At least three seconds of readable warning before the first disruptive pass.
+- Encounter duration, from warning to disengagement, at most 15 seconds.
+- At least three minutes between encounter end and another warning.
+- Only one active encounter.
+- Safe perches and shelter prevent new attacks and end pursuit.
+- Never spawn directly in the flight path; always provide an escape route.
+- Effects are temporary flock scattering, calls and formation changes; no injury or death.
 
-```text
-interest =
-    species.sociality
-  + player_proximity_score
-  + matching_weather_score
-  + flock_size_bonus
-  + landmark_interest
-  - fear
-  - predator_pressure
-  - bad_weather_penalty
-```
+Cooldown and onboarding protection must survive saving/loading. Season/time skipping cannot bypass the encounter cooldown. Gameplay timers use active play time, not accelerated world time.
 
-The player should never need to press a "recruit" button.
+## Validation
 
-## Predator AI
-
-Predator states:
-
-```text
-Patrol
-  ↓
-DetectFlock
-  ↓
-Assess
-  ↓
-Approach
-  ↓
-Threaten
-  ↓
-Strike / Feint
-  ↓
-Disengage
-```
-
-Predators should generally prefer intimidation and disruption.
-
-### Predator effects
-
-A successful pass can:
-- reduce flock confidence
-- temporarily scatter nearby birds
-- drain player stamina
-- force altitude changes
-- cause vulnerable birds to flee
-- cancel an ongoing recruitment
-
-## Predator types
-
-### Hawk
-Fast, localised attacks.
-- strongest against small flocks
-- short engagements
-- high burst threat
-
-### Eagle
-Large-area intimidation.
-- slower
-- creates strong fear
-- can force the flock lower or higher
-
-### Owl
-Night predator.
-- difficult to see
-- stronger during dusk/night
-- uses surprise
-
-Future:
-- falcon
-- harrier
-- fictional predator for late-game regions
-
-## Predator fairness rules
-
-Never:
-- spawn directly in front of the player
-- kill a bird without readable warning
-- chain attacks indefinitely
-- completely invalidate a weather strategy
-
-Always:
-- telegraph with silhouette/audio
-- give an escape vector
-- allow the player to use terrain
-- allow the flock to regroup
-
-## Weather reactions
-
-Each bird has a four-state response to each weather type:
-
-- Thrives
-- Comfortable
-- Struggles
-- Cannot fly effectively
-
-Example:
-
-| Species | Rain | Snow | Sun | Wind |
-|---|---|---|---|---|
-| Swallow | Comfortable | Struggles | Thrives | Thrives |
-| Heron | Thrives | Struggles | Comfortable | Struggles |
-| Eagle | Comfortable | Comfortable | Thrives | Thrives |
-| Kingfisher | Thrives | Struggles | Thrives | Struggles |
-| Owl | Comfortable | Comfortable | Struggles | Comfortable |
-| Seabird | Comfortable | Comfortable | Thrives | Thrives |
-
-These are starting values, not final balance.
-
-## Struggling behaviour
-
-A struggling bird:
-- flaps more frequently
-- loses altitude
-- has lower max speed
-- uses more stamina
-- drifts further from flock centre
-- may seek shelter
-- emits contextual audio
-
-A severely struggling bird should trigger a readable visual cue rather than a UI warning.
-
-## Species-specific behaviour
-
-Examples:
-
-### Eagle
-Likes wind and high altitude.
-
-### Swallow
-Excellent in wind, poor in snow.
-
-### Heron
-Very good in rain, poor in strong wind.
-
-### Owl
-Strong at night, weaker in bright daylight.
-
-### Kingfisher
-Likes rain and rivers, dislikes snow.
-
-### Seabird
-Thrives in wind and coastal storms.
-
-This makes collecting birds mechanically meaningful.
+Test duplicate recruitment, capacity, hysteresis, mixed-speed following, obstacles, separation recovery, roster preservation and all predator timing/protection rules. Seed scenarios for repeatable setup without claiming exact physics replay.

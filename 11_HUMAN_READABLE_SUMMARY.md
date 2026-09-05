@@ -1,202 +1,27 @@
 # Wings of Wander — Human-Readable Summary
 
-## What is it?
+You are a bird flying through a small, changing valley. Flight should feel relaxed and effortless. You discover places, meet birds and gradually gather a flock.
 
-A small, atmospheric 3D game where you play as a bird.
+The first complete game has one connected valley, four recruitable species, six landmarks and a short migration finale. You can keep exploring after the finale.
 
-You start alone.
+There is no stamina meter, conventional combat or permanent loss of companions. A hawk occasionally creates a brief, clearly signalled scare. Your flock may scatter, but it regroups and your controls stay reliable.
 
-You take flight and explore a beautiful painterly world.
+Time and seasons advance automatically: a day takes 12 minutes, a season 24 minutes and a year 96 minutes. Resting at a perch skips to dawn or the next season. Wind can accompany clear skies, rain or snow. Weather creates atmosphere and mild changes in the flock rather than survival pressure.
 
-You find other birds and gradually build a flock.
+## How we will build it
 
-There are no guns, swords or traditional combat.
+1. **Initial gameplay:** a simple 3D flight playground, controller-first controls, mouse support, camera, landing and forgiving collisions. Flying must be enjoyable before adding content.
+2. **World building and content:** shape the valley, recruit birds, add world changes and a hawk, then complete the journal, saves and migration route.
+3. **Finalise graphics style:** compare three treatments, choose one and finish the birds, environments, lighting, UI and sound.
 
-The fun comes from flying, discovering beautiful places, meeting birds and keeping your flock together.
+You receive a playable review after each meaningful increment. Progress pauses for your feedback. You decide what feels right and which visual direction to use.
 
-## What makes it interesting?
+## Tools
 
-The world changes.
+Unity 6.3 LTS and C# build the game, URP renders it, and Blender 4.5 LTS creates assets. The agent works through scripts, files, logs and generated previews; you judge the actual feel in playable builds.
 
-There are four times of day:
-- dawn
-- day
-- dusk
-- night
+The machine already has older Unity and Blender installations. The installation checklist explains the versions to add and how to verify the workflow.
 
-There are four seasons:
-- spring
-- summer
-- autumn
-- winter
+## Current status
 
-There are four main weather conditions:
-- sun
-- rain
-- snow
-- wind
-
-These aren't just cosmetic.
-
-Different birds like different conditions.
-
-An eagle might love strong wind.
-
-A heron might be comfortable in rain but struggle in wind.
-
-An owl is strongest at night.
-
-A swallow might be brilliant in wind but poor in snow.
-
-Some birds can barely fly in particular conditions.
-
-That means the flock you collect affects how you travel through the world.
-
-## Predators
-
-Predators add danger without turning the game into a combat game.
-
-A hawk might appear and dive toward the flock.
-
-An eagle might circle overhead and intimidate the birds.
-
-An owl might hunt at night.
-
-Predators don't primarily try to kill you.
-
-They try to scare and split the flock.
-
-A successful attack can:
-- reduce confidence
-- drain stamina
-- scatter birds
-- cancel recruitment
-- force you to flee
-
-The goal is to get away, regroup and continue your journey.
-
-## Why the weather matters
-
-Imagine you have a flock of 12 birds.
-
-A storm rolls in.
-
-Your strong wind birds suddenly become excellent flyers.
-
-But two smaller birds begin struggling.
-
-You have a choice:
-
-**Keep going**, because the wind gives you speed.
-
-Or:
-
-**Find shelter**, because your weaker birds are losing stamina.
-
-That's the kind of decision the game should create.
-
-## Why seasons matter
-
-Seasons change:
-- scenery
-- available birds
-- migration
-- weather
-- daylight
-- atmosphere
-
-Autumn might bring huge migrating flocks.
-
-Winter might make mountain travel dangerous.
-
-Spring might introduce rare nesting birds.
-
-## The overall feeling
-
-The player should feel:
-
-> "I wonder what's over there."
-
-Then:
-
-> "What's that bird?"
-
-Then:
-
-> "Can I get it to follow me?"
-
-Then:
-
-> "Oh no, there's a hawk."
-
-Then:
-
-> "Come on, everyone — follow me."
-
-Then:
-
-> "We made it."
-
-That emotional sequence is the game.
-
-## Development strategy
-
-Do not build a giant world first.
-
-Build the smallest possible prototype:
-
-1. One bird
-2. Flying
-3. Ten flocking birds
-4. One recruitable bird
-5. One small landscape
-6. One predator
-7. Weather
-8. Day/night
-9. Seasons
-10. Painterly art
-
-If that is fun, expand it.
-
-## Recommended technology
-
-- Unity
-- C#
-- URP
-- Blender
-- Git
-- GitHub Actions
-- AI coding tools
-- AI-assisted concept art
-- FMOD or Unity Audio
-
-## AI's role
-
-AI should help build the game, not decide what the game is.
-
-Use it to:
-- write code
-- create tests
-- debug
-- generate editor tools
-- create concept art
-- create texture references
-- produce placeholder assets
-- generate documentation
-- help balance systems
-
-The human should decide:
-- game feel
-- art direction
-- mechanics
-- scope
-- what is fun
-- what gets cut
-
-## The MVP
-
-A great first playable version only needs:
-
-**1 region + 8 birds + 2 predators + 4 weather states + 4 seasons + 4 times of day.**
-
-If that is enjoyable, the rest is content.
+This is the accepted documentation baseline, not an implemented game. No setup, flight or content checkpoint has passed yet. The next implementation milestone is 1A: setup and basic control.

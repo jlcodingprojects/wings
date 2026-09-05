@@ -1,130 +1,33 @@
 # 04 — Progression and Content
 
-## Progression philosophy
+## First complete build
 
-Progression should answer:
+One connected valley in a single gameplay scene: meadow, woodland, lake, waterfall and high ridge. Six discoverable landmarks provide a target 20–30-minute discovery route and continued free exploration.
 
-> "Where can I go and what can I experience now?"
+Initial landmark roster:
+1. Meadow roost: start, safe perch and onboarding.
+2. Woodland clearing: quiet exploration and sheltered perch.
+3. Lake shore: heron habitat and open-water sightline.
+4. Waterfall: kingfisher encounter and visual destination.
+5. Ridge overlook: swallow encounter and long-distance view.
+6. Old stone arch: shelter and a route landmark.
 
-Not:
+Sparrows introduce recruitment near the meadow. Layout, distances and route pacing are reviewed at 2A before content expansion. Placeholder geometry remains adjustable until accepted.
 
-> "How much damage do I deal?"
+## Progression
 
-## Player progression
+Discover species and landmarks, record them in a journal and build a persistent flock. Remove the old ten-level progression and flight-stat unlock ladder. All enjoyable basic flight capabilities are available from the start.
 
-Recommended levels:
+The journal records four recruitable species: sparrow, swallow, kingfisher and heron. Each entry needs habitat, identifiable silhouette, a call and readable behaviour. Availability may vary with the world but resting must make every required encounter reachable.
 
-1. First Flight
-2. Small Flock
-3. Confident Flyer
-4. Wind Rider
-5. Storm Traveller
-6. Mountain Flyer
-7. Night Flyer
-8. Migrator
-9. Flock Leader
-10. Great Migration
+Companion membership persists through scattering. This build caps active companions at 16; no inventory or complex roster management is required.
 
-Unlocks can include:
-- larger flock capacity
-- new regions
-- improved stamina
-- improved confidence recovery
-- ability to recruit unusual species
-- night access
-- extreme weather tolerance
+## Migration finale
 
-## Bird collection
+Unlock when all four species and at least four of the six landmarks are discovered. Indicate the available route through an understated journal/perch prompt. The route revisits the valley and concludes in a flock gathering.
 
-MVP: 8 species.
+The finale is an exploration sequence without harsh timers, mandatory weather composition or a minimum flock-size gate. Save its unlock and completion state. Afterwards continue free exploration.
 
-Target full game: 30–50 species.
+## Deferred expansion
 
-Each bird should have:
-- painted journal illustration
-- habitat
-- preferred time
-- preferred season
-- weather strengths
-- weather weaknesses
-- personality
-- flock contribution
-- unique vocalisation
-
-## Example species
-
-### Sparrow
-Easy first recruit.
-Social and curious.
-
-### Swallow
-Fast and highly manoeuvrable.
-Thrives in wind.
-
-### Kingfisher
-Water specialist.
-Likes rain and rivers.
-
-### Heron
-Slow and calm.
-Strong in rain, poor in wind.
-
-### Eagle
-High-altitude specialist.
-Excellent in wind.
-
-### Owl
-Night specialist.
-Strong nocturnal behaviour.
-
-### Seabird
-Coastal specialist.
-Excellent in wind.
-
-### Crane
-Social flock stabiliser.
-Strong seasonal migration behaviour.
-
-## Flock bonuses
-
-Avoid conventional +10% stats.
-
-Instead use qualitative effects.
-
-Examples:
-- Eagle makes high-altitude travel easier.
-- Crane improves cohesion.
-- Swallow improves manoeuvrability.
-- Seabird improves wind handling.
-- Owl improves night confidence.
-- Heron improves rain confidence.
-
-## Landmarks
-
-Every landmark should have a gameplay purpose.
-
-Example:
-- Waterfall: attracts kingfishers
-- Mountain peak: attracts eagles
-- Village: attracts sparrows
-- Forest: attracts owls
-- Coast: attracts seabirds
-- Wetland: attracts herons/cranes
-- Ruins: rare bird encounter
-- Cave: weather shelter
-
-## Secrets
-
-Use environmental discovery:
-- hidden nesting sites
-- rare birds
-- unusual weather phenomena
-- abandoned structures
-- painted "memory" scenes
-- migration routes
-
-## Content production rule
-
-Build systems that make one bird or one landmark reusable.
-
-Do not build bespoke code for individual species unless it creates a genuinely unique behaviour.
+Additional regions, 8+ recruitable species, extra predator types, complex flock roles, statistical skill trees, bespoke bird powers and commercial distribution are outside this commitment. Record additions as explicit scope decisions rather than assuming that a working prototype authorises them.

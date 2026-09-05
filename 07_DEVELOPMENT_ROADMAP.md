@@ -1,161 +1,45 @@
-# 07 — Development Roadmap
+# 07 — Three-Stage Development Roadmap
 
-## Stage 0 — Project skeleton
+Implementation begins only after the documentation pass. Follow checkpoints in order and pause for human feedback at each.
 
-Goal: empty project builds and runs.
+## Stage 1 — Initial gameplay
 
-Deliver:
-- Unity project
-- Git repository
-- CI
-- input system
-- scene bootstrap
-- basic camera
+Goal: flight is pleasant in a simple 3D landscape.
 
-## Stage 1 — Flight prototype
+| Checkpoint | Deliverable | Review |
+|---|---|---|
+| 1A Setup and control | Verified toolchain, Windows build, placeholder bird, basic steering and both input paths | Can launch and steer; controller-first direction |
+| 1B Flight feel | Assisted flap/glide/dive, neutral recovery and data-driven tuning | Ease, speed, turn response and enjoyment |
+| 1C Camera and contact | Stable camera, settings, swept collisions, assisted perching/takeoff and safe recovery | Comfort, landing predictability and forgiveness |
+| 1D Flight playground | Slopes, water, passage, obstacles, several perches and a 5–10-minute route | Spatial scale and sustained flight enjoyment |
 
-Goal: flight feels good.
+Exit: human enjoys ten minutes of flight; both input paths and camera work comfortably; landing and recovery are forgiving. No content expansion until accepted.
 
-Deliver:
-- player bird placeholder
-- flap
-- glide
-- dive
-- stamina
-- camera
-- mouse
-- controller
+## Stage 2 — World building and content
 
-Exit criterion:
-> Flying around an empty scene is enjoyable for 5 minutes.
+Goal: complete discovery-to-finale gameplay with placeholder art.
 
-## Stage 2 — Flock prototype
+| Checkpoint | Deliverable | Review |
+|---|---|---|
+| 2A Valley exploration | Connected valley and six functional landmarks | Layout, travel time and sightlines |
+| 2B Living flock | One species proves recruitment, formation and recovery | Believability and satisfaction |
+| 2C Changing world | Automatic time/seasons, rest, weather and independent wind | Pacing, readability and comfort |
+| 2D Gentle tension | One hawk, warnings, timing constraints and regrouping | Fairness and tension |
+| 2E Complete loop | Four species, persistent journal/roster, save/load, functional audio and migration finale | 20–30-minute route and replayability |
 
-Goal: flock feels alive.
+Exit: complete loop works, progress survives reloads, content is reachable without waiting a year, and human accepts pacing. Final asset production waits.
 
-Deliver:
-- Boids
-- 10–30 birds
-- cohesion
-- separation
-- alignment
-- flock director
-- regroup
+## Stage 3 — Finalise graphics style
 
-Exit criterion:
-> Watching and steering the flock is satisfying without objectives.
+Goal: coherent presentation without changing accepted gameplay.
 
-## Stage 3 — Recruitment
+| Checkpoint | Deliverable | Review |
+|---|---|---|
+| 3A Style selection | Three treatments of the same scene, lighting and camera route | Select one direction |
+| 3B Representative finish | One finished area and bird | Quality, readability and production reference |
+| 3C Full-world treatment | All birds, valley assets, seasons/weather/time, UI and audio | Coherence and readability in motion |
+| 3D Final playable build | Performance tuning and full regression review | Final acceptance |
 
-Goal: joining feels magical.
+Exit: selected style is applied coherently, flight remains comfortable, full loop passes and the Windows build meets the measured performance target.
 
-Deliver:
-- wild birds
-- curiosity
-- approach
-- follow
-- recruitment
-- journal
-
-Exit criterion:
-> Player naturally wants to find another bird.
-
-## Stage 4 — Weather/time/season simulation
-
-Goal: world changes gameplay.
-
-Deliver:
-- 4 times
-- 4 seasons
-- 4 weather states
-- transitions
-- weather responses
-- visual/audio changes
-
-Exit criterion:
-> Players can tell that weather changes how their flock behaves.
-
-## Stage 5 — Predators
-
-Goal: tension without combat.
-
-Deliver:
-- hawk
-- eagle
-- threat telegraph
-- confidence
-- scattering
-- regroup
-- escape mechanics
-
-Exit criterion:
-> Predator encounter is exciting rather than frustrating.
-
-## Stage 6 — Vertical slice
-
-One polished region containing:
-- meadow
-- lake
-- waterfall
-- mountain
-- forest
-- village
-- cave shelter
-- 8 bird species
-- 2 predators
-- full weather/time/season cycle
-
-Target playtime: 10–20 minutes.
-
-## Stage 7 — Art direction
-
-Only now invest heavily in:
-- painterly shaders
-- final bird models
-- environment materials
-- sky
-- VFX
-- lighting
-- UI
-
-## Stage 8 — Content production
-
-Expand:
-- 3–5 regions
-- 20–30 birds
-- more landmarks
-- migration events
-- rare birds
-- additional predator variants
-
-## Stage 9 — Great Migration
-
-Final progression:
-- unlock migration route
-- traverse regions
-- join large migratory groups
-- large flock finale
-
-## Stage 10 — Polish
-
-- performance
-- accessibility
-- controller feel
-- audio
-- save/load
-- onboarding
-- bug fixing
-- platform builds
-
-## Milestone gates
-
-At every milestone ask:
-
-1. Is flying fun?
-2. Is the flock fun to watch?
-3. Is recruiting satisfying?
-4. Does weather change decisions?
-5. Are predators exciting?
-6. Does exploration create curiosity?
-
-If any answer is no, stop adding content and fix the system.
+No fixed calendar delivery promise. Revisions at checkpoints determine actual pace; estimates can follow measured implementation throughput.

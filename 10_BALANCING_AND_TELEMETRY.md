@@ -1,115 +1,48 @@
-# 10 — Balancing and Telemetry
+# 10 — Balancing and Validation
 
-## Primary tuning variables
+## Targets
 
-### Flight
-- flap lift
-- flap acceleration
-- glide drag
-- dive acceleration
-- stamina drain
-- stamina recovery
+Relaxed flight leads. No stamina calculations or forced-descent balancing remains.
 
-### Flock
-- cohesion
-- separation
-- alignment
-- max flock size
-- regroup speed
+Initial values:
+- Day: 12 minutes; season: 24 minutes; year: 96 minutes.
+- Weather transition: at least 30 seconds.
+- Predator onboarding protection: five active-play minutes.
+- Warning: at least three seconds before disruption.
+- Encounter: at most 15 seconds including warning.
+- Cooldown: at least three active-play minutes after disengagement.
+- Companion cap: 16; stress-test 30.
+- Complete discovery route: 20–30 minutes.
+- Performance: 60 FPS at 1440p on inspected development PC.
 
-### Recruitment
-- curiosity
-- sociality
-- fear
-- proximity
-- required follow duration
-- weather modifier
+Tune flight speed, steering response, dive limits, glide descent, camera distance/recenter rate, recruitment radius/dwell/grace periods, flock spacing and recovery time through the relevant checkpoints. Record accepted values in data assets and the review log.
 
-### Predator
-- detection range
-- approach speed
-- threat duration
-- strike frequency
-- confidence damage
-- scatter radius
-- disengage distance
+## Automated and scenario validation
 
-### Weather
-- stamina multiplier
-- confidence multiplier
-- wind force
-- visibility
-- lift
-- bird-specific modifiers
+| System | Required scenarios |
+|---|---|
+| Flight | Comparable fixed-step behaviour at 30/60/120 render FPS; neutral recovery and dive limits |
+| Contact | Thin obstacles, steep terrain, high-speed sweep, water and stuck recovery |
+| Perching | Valid approach, cancellation, invalid target, obstruction and blocked takeoff |
+| Recruitment | Duplicate prevention, capacity, distance hysteresis and temporary interruptions |
+| Flock | Mixed speeds, obstacle avoidance, scattering, rejoin and preserved discoveries |
+| Predator | Warning/duration/cooldown, opening protection, shelter and reload protection |
+| Environment | Year wrap, rest actions, pause, transition reload and valid weather combinations |
+| Saves | Normal reload, interrupted write, corrupt primary, backup and unknown newer version |
+| UI/input | Complete controller-only and mouse-only routes, hot-plug and no double-consumed input |
 
-## Design target
+Use focused automated tests for state/timing/persistence logic and play-mode tests for meaningful engine integration. Do not mirror trivial implementation details in tests.
 
-A normal exploration period should feel safe.
+## Human and graphics validation
 
-A predator encounter should be:
-- readable within 1–2 seconds
-- survivable almost every time
-- disruptive rather than lethal
+At every review ask about the relevant behaviour: flight comfort, camera effort, landing predictability, flock appeal, recruitment clarity, weather variety, predator fairness or exploration curiosity.
 
-A major weather event should:
-- create a meaningful route choice
-- reward species composition
-- provide an opportunity for mastery
+For Stage 3 review all season/time combinations plus representative weather extremes and important pairings. Inspect motion, not only still screenshots.
 
-## Example encounter
+Measure a repeatable graphics-enabled route with 16 companions and weather. Record frame-time distribution and conspicuous spikes, resolution, quality settings and machine. Averages alone and headless execution cannot establish smooth GPU performance.
 
-Player has:
-- 10 birds
-- 70% stamina
-- 85% confidence
+## Diagnostics
 
-A hawk approaches.
+Use local logs and profiling counters for build ID, scenario seed, flight time, recruitment, scattering, discoveries and encounter timing. No remote analytics service is part of this build. Diagnostic capture must not change simulation timing materially.
 
-Expected sequence:
-1. warning audio
-2. hawk visible
-3. flock compresses
-4. confidence drops slightly
-5. hawk feints
-6. player turns toward shelter/wind
-7. flock scatters briefly
-8. player regroups
-9. confidence recovers
-
-The player should finish thinking:
-
-> "That was close."
-
-Not:
-
-> "The game randomly killed me."
-
-## Telemetry
-
-If analytics are used, capture only gameplay metrics needed for balancing.
-
-Useful events:
-- flight duration
-- average flock size
-- bird recruitment attempts
-- successful recruitment
-- predator encounters
-- predator escapes
-- confidence collapse
-- stamina collapse
-- weather encountered
-- weather-induced retreat
-- landmarks visited
-
-## Playtest questions
-
-After each prototype:
-1. Did you enjoy simply flying?
-2. Did you notice bird weather differences?
-3. Did predator encounters feel fair?
-4. Did you understand why a bird was struggling?
-5. Did recruiting birds feel earned?
-6. Did you voluntarily explore?
-7. Did you want to find one more bird?
-
-The seventh question is the most important.
+A failed acceptance check is resolved before advancing its checkpoint. Do not call a human-dependent gate passed on the basis of automated tests alone.

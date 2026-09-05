@@ -1,42 +1,47 @@
-# Wings of Wander — Plan Pack
+# Wings of Wander — Approved Plan Pack
 
-A production-ready planning pack for a small, AI-assisted 3D exploration game about flight, flocking, discovery, recruitment, weather, seasons, time of day, and non-combat aerial threats.
+A compact Windows game about relaxed flight, exploration and gathering a flock, built interactively with the player steering progress at frequent checkpoints.
 
-## Design pillars
+## Status
 
-1. **Flight first** — movement is simple, expressive and satisfying.
-2. **The flock is the protagonist** — birds behave as a coherent social organism.
-3. **Discovery over objectives** — landmarks and interesting birds pull the player through the world.
-4. **Threat without combat** — predators create tension by disrupting the flock rather than being fought.
-5. **A living world** — time, weather and seasons materially change flight and bird behaviour.
-6. **Painterly 3D** — low/medium-poly geometry combined with watercolour, gouache, ink and painted materials.
-7. **AI-assisted production** — AI accelerates implementation and content production, while humans retain creative and technical authority.
+Planning baseline accepted on 2026-09-05. This repository currently contains documentation; no playable build or setup smoke test has been completed. This documentation pass does not install software or implement gameplay.
 
-## Pack contents
+## Committed build
 
-- `01_GAME_SPEC.md` — core game specification and gameplay loop
-- `02_FLOCK_AND_BIRD_AI.md` — flock simulation, bird personalities, weather responses and predator AI
-- `03_WORLD_TIME_WEATHER_SEASONS.md` — world simulation specification
-- `04_PROGRESSION_AND_CONTENT.md` — birds, collection, progression and world content
-- `05_TECHNICAL_ARCHITECTURE.md` — Unity/C# architecture and data model
-- `06_AI_CODING_WORKFLOW.md` — AI-driven development workflow and agent rules
-- `07_DEVELOPMENT_ROADMAP.md` — staged development plan and vertical slice
-- `08_TASK_LIST.md` — ordered implementation backlog
-- `09_ART_AND_AUDIO.md` — visual and audio direction
-- `10_BALANCING_AND_TELEMETRY.md` — tuning framework
-- `11_HUMAN_READABLE_SUMMARY.md` — concise project brief
+- One connected valley: meadow, woodland, lake, waterfall and high ridge.
+- Four recruitable species: sparrow, swallow, kingfisher and heron.
+- Up to 16 companions; test 30 as performance headroom.
+- One hawk predator creating regular, gentle, nonlethal tension.
+- Automatic day/night and seasons; clear/rain/snow with independent wind.
+- Six landmarks, persistent journal, save/load and a short migration finale.
+- A 20–30-minute discovery route, followed by continued free exploration.
+- Controller-first, effortless flight with mouse support.
+- Provisional soft gouache/watercolour direction, finalised in Stage 3.
 
-## Recommended MVP
+## Exactly three stages
 
-Build one compact region with:
-- 1 player bird
-- 8 recruitable bird species
-- 2 predator types
-- 4 times of day
-- 4 seasons
-- 4 weather states
-- 6–10 landmarks
-- 1 major storm event
-- flock size up to ~30 simulated birds
+1. **Initial gameplay:** prove 3D flight, controls, camera, contact and perching.
+2. **World building and content:** complete exploration, flock, world changes and progression.
+3. **Finalise graphics style:** choose a demonstrated treatment and finish assets, presentation and performance.
 
-Do not build a huge open world until the flight + flock + recruitment + threat loop is fun.
+Each stage contains review checkpoints. Pause for human feedback at each checkpoint; do not interpret silence as acceptance.
+
+## Reading order
+
+| Document | Purpose |
+|---|---|
+| [Human-readable summary](11_HUMAN_READABLE_SUMMARY.md) | Concise creative brief |
+| [Game specification](01_GAME_SPEC.md) | Flight, controls and core loop |
+| [Flock and bird AI](02_FLOCK_AND_BIRD_AI.md) | Companions, recruitment and hawk |
+| [World simulation](03_WORLD_TIME_WEATHER_SEASONS.md) | Time, seasons, weather and shelter |
+| [Progression and content](04_PROGRESSION_AND_CONTENT.md) | Valley, species, discoveries and finale |
+| [Technical architecture](05_TECHNICAL_ARCHITECTURE.md) | Stack, boundaries and asset pipeline |
+| [Development workflow](06_AI_CODING_WORKFLOW.md) | Implementation and checkpoint rules |
+| [Roadmap](07_DEVELOPMENT_ROADMAP.md) | Three stages and exit gates |
+| [Task list](08_TASK_LIST.md) | Checkpoint-linked implementation backlog |
+| [Art and audio](09_ART_AND_AUDIO.md) | Style selection and presentation |
+| [Balancing and validation](10_BALANCING_AND_TELEMETRY.md) | Tuning and required evidence |
+| [Installation checklist](12_INSTALLATION_CHECKLIST.md) | Existing software, downloads and connection tests |
+| [Decision and checkpoint log](13_DECISIONS_AND_CHECKPOINTS.md) | Accepted direction and pending reviews |
+
+Implementation order is governed by the roadmap; accepted changes are recorded in the decision log and propagated to affected specifications. Scope extensions require a new recorded decision.
