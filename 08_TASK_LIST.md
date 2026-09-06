@@ -1,6 +1,6 @@
 # 08 — Checkpoint Backlog
 
-The user accepted the general 1A flight foundation and authorised continued implementation. The user authorised advancing from 1B; checkpoint 1C is implemented and awaiting gameplay review. Physical-controller verification remains unconfirmed. Complete and review one checkpoint at a time.
+The user accepted the general 1A flight foundation and authorised continued implementation. The user rejected 1C landing as VTOL-like and requested a bird-motion revision in 1D, with flock flying next. Physical-controller verification remains unconfirmed. Complete and review one checkpoint at a time.
 
 ## Stage 1
 
@@ -31,13 +31,21 @@ The user accepted the general 1A flight foundation and authorised continued impl
 - [x] Add swept collisions, deflection and safe recovery.
 - [x] Add assisted approach, cancellation, perching and takeoff.
 - [x] Verify both input paths and UI input consumption.
-- [ ] Present review packet and await response.
+- [x] Receive review: landing must look like a real bird; revise in 1D.
 
-### 1D — Flight playground
-- [ ] Add slopes, narrow passage, water, obstacles and several perches.
-- [ ] Provide 5–10-minute route and complete ten-minute comfort review.
-- [ ] Record Stage 1 acceptance before proceeding.
+### 1D — Bird landing and takeoff (revised by user)
+- [x] Inspect real takeoff and landing footage and record references.
+- [x] Replace VTOL-like motion with forward approach, flare, foot contact and settling.
+- [x] Add supported crouch, leg push and powered departure.
+- [x] Select a perch by aim and expose Land here at that spot.
+- [x] Start/reset perched on an overlook branch.
+- [x] Add articulated prototype and explicit animation/rig bindings for detailed wings, legs/toes, head and tail.
+- [x] Export an editable Blender skeleton and weighted mesh; verify animation channels in Unity.
+- [x] Prepare CHECKPOINT_1D_REVIEW.md and evidence.
+- [ ] Obtain review of revised bird motion and targeting.
+- [ ] Sustained ten-minute comfort review remains open; the longer terrain route is deferred.
 
+User-directed next checkpoint: **2B living flock**, before 2A valley expansion. Do not expand flock species or predator mechanics in 1D.
 ## Stage 2
 
 ### 2A — Valley exploration

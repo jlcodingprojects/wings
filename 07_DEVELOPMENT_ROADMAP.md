@@ -11,9 +11,11 @@ Goal: flying a single bird is pleasant in a simple 3D landscape. Establish fligh
 | 1A Setup and control | Verified toolchain, Windows build, placeholder bird, basic steering and both input paths | Can launch and steer; controller-first direction |
 | 1B Flight feel | Assisted flap/glide/dive, neutral recovery and data-driven tuning | Ease, speed, turn response and enjoyment |
 | 1C Camera and contact | Stable camera, settings, swept collisions, assisted perching/takeoff and safe recovery | Comfort, landing predictability and forgiveness |
-| 1D Flight playground | Slopes, water, passage, obstacles, several perches and a 5–10-minute route | Spatial scale and sustained flight enjoyment |
+| 1D Bird landing and takeoff | Forward approach, flare/grasp/settle, leg push-off, aim-selected perches, perched opening and replaceable articulated rig | Bird-like motion and targeting clarity |
 
 Exit: human enjoys ten minutes of flight; both input paths and camera work comfortably; landing and recovery are forgiving. No content expansion until accepted.
+
+User revision: after 1D review, implement **2B living flock next**, before 2A valley expansion. The longer terrain/comfort route is deferred; existing comfort and contact checks continue during playtests.
 
 ## Stage 2 — World building and content
 

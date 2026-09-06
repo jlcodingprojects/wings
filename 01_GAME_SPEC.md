@@ -42,9 +42,9 @@ Keep a stable horizon by default, shake disabled, smooth recentering and adjusta
 
 ## Landing and recovery
 
-A landing request is accepted only near a valid, unblocked perch. Assistance completes the approach; another landing request cancels an approach and resumes flight. Invalid requests leave flight unchanged with brief feedback.
+Every normal game start places the bird on a visually interesting perch. Point towards a reachable perch to reveal **Land here** for that exact spot. Landing preserves forward motion, brakes with a body/wing flare, reaches the feet, grasps and settles. Require a clear approach and braking room; do not hover vertically or reverse onto a perch. Another landing request cancels before foot contact. Invalid requests leave flight unchanged.
 
-A while perched initiates assisted takeoff into clear space. Water contact or an unrecoverable obstruction returns the player to the last safe perch without lost progress. Ordinary collisions slow and deflect the bird. Validate the recovery destination before use; retain the starting perch as a fallback.
+A while perched initiates a supported crouch, leg push-off and powered wingbeats into clear space. Articulated wings, legs/toes, head/gaze and tail must remain supported as the prototype becomes a detailed model. Water contact or an unrecoverable obstruction returns the player to the last safe perch without lost progress. Ordinary collisions slow and deflect the bird. Validate the recovery destination before use; retain the starting perch as a fallback.
 
 ## Resources and failure
 

@@ -4,7 +4,7 @@ A compact Windows game about flight and flock dynamics: initially fly a single b
 
 ## Status
 
-Checkpoint 1C adds assisted landing, cancellation, perching, takeoff, swept contact and safe recovery, plus camera controls. Both flight experiments and shared adjustable defaults remain available. See the [checkpoint 1C playtest guide](CHECKPOINT_1C_REVIEW.md). Landing and camera feel await review; physical-controller verification and future bird/flock influences remain open.
+Checkpoint 1D revises landing and takeoff using real-bird motion references: forward approach, flare, foot contact, leg push-off and powered departure. Aim at a perch for Land here; start perched overlooking the lake. The articulated prototype and editable Blender rig support future detailed animations. See the [1D playtest guide](CHECKPOINT_1D_REVIEW.md) and [motion/rig contract](15_BIRD_MOTION_AND_RIG.md). Human motion review remains open. **Flock flying is next**, before broader valley expansion.
 
 ## Committed build
 

@@ -14,7 +14,9 @@ namespace Wings
         bool snap = true;
         float lastLookTime;
         int recoveries;
+        float restBlend = 1;
         public void Recenter(bool immediate = false) { if (immediate) snap = true; orbitYaw = orbitPitch = 0; dampVelocity = Vector3.zero; }
+        public void SetOrbit(float yaw, float pitch) { orbitYaw=yaw; orbitPitch=pitch; lastLookTime=Time.unscaledTime; }
         void LateUpdate()
         {
             if (bird == null || input == null) return;
@@ -28,13 +30,15 @@ namespace Wings
                 orbitYaw = Mathf.Lerp(orbitYaw, 0, 1 - Mathf.Exp(-Time.deltaTime * recenterRate));
                 orbitPitch = Mathf.Lerp(orbitPitch, 0, 1 - Mathf.Exp(-Time.deltaTime * recenterRate));
             }
-            Quaternion orbit = Quaternion.Euler(orbitPitch + 9, bird.transform.eulerAngles.y + orbitYaw, 0);
-            Vector3 target = bird.transform.position + Vector3.up * 1.7f;
-            Vector3 desired = target - orbit * Vector3.forward * distance;
+            bool resting = bird.CurrentActivity == BirdMotor.Activity.Perched;
+            restBlend = Mathf.Lerp(restBlend,resting ? 1 : 0,1-Mathf.Exp(-Time.unscaledDeltaTime*2));
+            Quaternion orbit = Quaternion.Euler(orbitPitch + Mathf.Lerp(9,5,restBlend), bird.transform.eulerAngles.y + orbitYaw + restBlend*38, 0);
+            Vector3 target = bird.transform.position + Vector3.up * Mathf.Lerp(1.7f,0.5f,restBlend);
+            Vector3 desired = target - orbit * Vector3.forward * Mathf.Lerp(distance,4.2f,restBlend);
             desired = ClearCameraPosition(target, desired);
             var smoothed = snap ? desired : Vector3.SmoothDamp(transform.position, desired, ref dampVelocity, 0.22f, Mathf.Infinity, Time.unscaledDeltaTime);
             transform.position = ClearCameraPosition(target, smoothed);
-            Vector3 aim = bird.transform.position + Vector3.up * 0.8f;
+            Vector3 aim = bird.transform.position + Vector3.up * Mathf.Lerp(0.8f,0.2f,restBlend);
             transform.rotation = Quaternion.LookRotation((aim - transform.position).normalized, Vector3.up);
             snap = false;
         }

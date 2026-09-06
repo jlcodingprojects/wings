@@ -8,7 +8,7 @@ Do not assign unrelated media to each biome. Use one coherent visual language, t
 
 ## Stage boundaries
 
-Stage 1 needs plain materials, a recognisable placeholder bird and simple wing motion.
+Stage 1D needs a replaceable articulated bird with wing joints, legs/toes, tail and head look, while materials and mesh detail stay provisional.
 Stage 2 needs readable species placeholders, landmarks, weather, time/season cues and functional audio.
 Stage 3 selects and produces the final style.
 
@@ -16,7 +16,7 @@ At 3A render three treatments of the same small scene with matching geometry, li
 
 ## Production
 
-Finish the player, four companions and hawk with flap, glide, bank and perch animation. Prefer clear silhouette and flight behaviour over facial animation. Reuse rigs where proportions permit, without distorting species identity.
+Finish the player, four companions and hawk with flap, glide, bank, forward approach, flare, grasp, settle, crouch and push-off animation. Support high-fidelity wings, legs/toes and head motion; the head should look towards intended travel or the landing target. Preserve readable silhouettes and species behaviour. See [motion and rig contract](15_BIRD_MOTION_AND_RIG.md). Reuse rigs where proportions permit, without distorting species identity.
 
 Keep accepted collision geometry and route boundaries stable during asset replacement. Verify import scale, normals, orientation and animation before bulk exports.
 

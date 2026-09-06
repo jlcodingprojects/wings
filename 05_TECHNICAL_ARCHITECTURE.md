@@ -29,6 +29,8 @@ Use a 50 Hz fixed simulation step with interpolated presentation. The kinematic 
 
 Keep bootstrap, simulation and presentation separate. A single gameplay scene is sufficient; do not introduce world streaming or a general service framework prematurely.
 
+Checkpoint 1D adds `BirdActionState` (phase/progress, flare, crouch, leg reach, wing fold, grip, gaze and world foot contacts), `LandingTrajectory`, aim-based `PerchTargeting` and explicit `BirdRig` bindings. `BirdMotor` remains the world-motion owner. A future Generic Animator consumes the same action contract with root motion disabled; an authored controller/IK layer replaces procedural posing. The current prefab and editable Blender armature demonstrate wing, leg, head and tail channels. See [motion/rig contract](15_BIRD_MOTION_AND_RIG.md) for asset paths, rebuild sequence and production limitations.
+
 ## Save/load
 
 Versioned JSON stores discovered species/landmark IDs, known bird identities, active/reserved/independent membership state, recoverable player injury state, finale state, environment clock/transitions, safe perch and predator protection/cooldown state. Store settings separately so a new game preserves preferences.

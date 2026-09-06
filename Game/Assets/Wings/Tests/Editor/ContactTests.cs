@@ -24,7 +24,7 @@ namespace Wings.Tests
             var bird = node.AddComponent<BirdMotor>(); bird.profile = profile; bird.input = node.AddComponent<FlightInput>();
             bird.origin = origin; bird.ResetFlight();
             perch = Node("Perch", origin + Vector3.forward * 10).AddComponent<Perch>();
-            bird.perches = new[] { perch }; bird.startingPerch = perch; return bird;
+            bird.perches = new[] { perch }; bird.startingPerch = perch; bird.SelectedPerch = perch; return bird;
         }
         [TearDown] public void Cleanup() { for (int i = owned.Count - 1; i >= 0; i--) Object.DestroyImmediate(owned[i]); owned.Clear(); }
 
@@ -55,12 +55,13 @@ namespace Wings.Tests
             bird.AdvanceAssistance(0.5f); var position = bird.State.position;
             bird.RequestPerchAction(); Assert.That(bird.CurrentActivity, Is.EqualTo(BirdMotor.Activity.Flying));
             Assert.That(bird.State.position, Is.EqualTo(position)); Assert.That(bird.LastSafePerch, Is.Null);
-            bird.RequestPerchAction(); bird.AdvanceAssistance(3);
+            bird.ResetFlight(); // A fresh fly-in after cancellation, not a hover/reversal at point-blank range.
+            bird.RequestLanding(perch); bird.AdvanceAssistance(3);
             Assert.That(bird.CurrentActivity, Is.EqualTo(BirdMotor.Activity.Perched)); Assert.That(bird.LastSafePerch, Is.EqualTo(perch));
             Assert.That(bird.State.velocity, Is.EqualTo(Vector3.zero));
             bird.RequestPerchAction(); bird.AdvanceAssistance(2);
             Assert.That(bird.CurrentActivity, Is.EqualTo(BirdMotor.Activity.Flying));
-            Assert.That(bird.State.position, Is.EqualTo(perch.LaunchPoint));
+            Assert.That(bird.State.position.z, Is.GreaterThan(perch.Point.z + 5));
         }
         [Test] public void BlockedAndDistantRequestsLeaveFlightUnchanged()
         {
@@ -75,13 +76,13 @@ namespace Wings.Tests
             var bird = Bird(out var perch); bird.RequestPerchAction();
             var wall = Wall(origin + Vector3.forward * 5); bird.AdvanceAssistance(3);
             Assert.That(bird.CurrentActivity, Is.EqualTo(BirdMotor.Activity.Flying));
-            wall.SetActive(false); Physics.SyncTransforms(); bird.RequestPerchAction(); bird.AdvanceAssistance(3);
-            Wall(perch.LaunchPoint); bird.RequestPerchAction();
+            wall.SetActive(false); Physics.SyncTransforms(); bird.RequestLanding(perch); bird.AdvanceAssistance(3);
+            Wall(bird.DeparturePosition(0.5f,bird.State.heading,perch.Point)); bird.RequestPerchAction();
             Assert.That(bird.CurrentActivity, Is.EqualTo(BirdMotor.Activity.Perched));
         }
         [Test] public void RecoveryValidatesSavedPerchAndFallsBackToStartingPerch()
         {
-            var bird = Bird(out var perch); bird.RequestPerchAction(); bird.AdvanceAssistance(3);
+            var bird = Bird(out var perch); bird.RequestLanding(perch); bird.AdvanceAssistance(3);
             var fallback = Node("Fallback", origin + Vector3.right * 20).AddComponent<Perch>(); bird.startingPerch = fallback;
             Wall(perch.Point); bird.Recover("Test recovery");
             Assert.That(bird.LastSafePerch, Is.EqualTo(fallback)); Assert.That(bird.State.position, Is.EqualTo(fallback.Point));

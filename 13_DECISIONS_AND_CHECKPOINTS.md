@@ -41,8 +41,8 @@ The old eight-species/two-predator MVP, stamina, camera destabilisation, exclusi
 |---|---|---|---|
 | 1A | Setup and control | Windows A/B prototype built and checked; physical-controller verification remains unconfirmed | General flight accepted; user authorised continued implementation |
 | 1B | Flight feel | Dive, mode presentation and shared context-ready tuning implemented; 17 tests and visible player checks pass | User authorised continuing to 1C; detailed dive feedback remains open |
-| 1C | Camera and contact | Assisted perching, swept contact, safe recovery and camera controls implemented | Pending gameplay review |
-| 1D | Flight playground | Pending | Pending |
+| 1C | Camera and contact | Assisted perching, swept contact, safe recovery and camera controls implemented | Landing rejected as VTOL-like; revised in 1D |
+| 1D | Bird landing and takeoff | Forward approach/contact/departure, aim targeting and articulated rig implemented | Pending gameplay review |
 | 2A | Valley exploration | Pending | Pending |
 | 2B | Living flock | Pending | Pending |
 | 2C | Changing world | Pending | Pending |
@@ -74,7 +74,16 @@ The old eight-species/two-predator MVP, stamina, camera destabilisation, exclusi
 - Build: `0.3.0-checkpoint1c`, `Builds/Checkpoint1C/Wings.exe`.
 - Delivered: adjustable camera look/recentering, swept contact and deflection, validated safe recovery, three temporary perches, assisted approach/cancellation/takeoff and contextual input.
 - Evidence: zero build errors/warnings, 23 edit-mode tests and 19 standalone visible player checks pass. Menu, flight and perched captures inspected. See `Setup/checkpoint1c-evidence.json`.
-- Review pending: assistance timing/control and camera comfort. Physical-controller verification remains open. Next checkpoint is 1D after user feedback.
+- User feedback: landing looks like a VTOL aircraft. Research real footage, use aim-selected Land here, start perched, and support detailed wings/legs/head animation. 1D is explicitly revised to address this. Physical-controller verification remains open.
+
+## 1D revision — 2026-09-06
+
+- User requested bird-like landing/takeoff after rejecting 1C, accepting that this first revision may need more iteration.
+- Deliver forward approach, flare, grasp/settle, leg push-off, aim-based Land here, and a visually composed perched opening.
+- Keep high-fidelity wing, leg/toe, head/gaze and tail animation replaceable through an explicit contract. See `15_BIRD_MOTION_AND_RIG.md` and the editable Blender template.
+- Build `0.4.0-checkpoint1d`; evidence and current limits in `CHECKPOINT_1D_REVIEW.md` and `Setup/checkpoint1d-evidence.json`.
+- Decision: implementation ready for human review, not accepted realism or Stage 1 comfort.
+- Revised order: **living flock flying (2B) follows this checkpoint**, before valley expansion (2A). The earlier 1D terrain/route scope is deferred. No other species/predator/content expansion is implied.
 
 ## Review entry template (for subsequent checkpoints)
 

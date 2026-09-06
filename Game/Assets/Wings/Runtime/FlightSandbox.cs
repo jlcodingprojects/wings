@@ -16,7 +16,18 @@ namespace Wings
         public string ExperimentName => selected == 0 ? "A  /  Assisted" : "B  /  Momentum";
         public Rect Header => new Rect(20, 20, 345, 115);
         public Rect Buttons => new Rect(Screen.width - 460, 20, 440, 46);
-        public Rect PerchButton => new Rect(Screen.width / 2f - 165, Screen.height - 124, 330, 40);
+        public Rect PerchButton
+        {
+            get
+            {
+                if (bird.CurrentActivity == BirdMotor.Activity.Flying && bird.SelectedPerch != null)
+                {
+                    var point = flightCamera.GetComponent<Camera>().WorldToScreenPoint(bird.SelectedPerch.Point);
+                    return new Rect(Mathf.Clamp(point.x-85,20,Screen.width-190),Mathf.Clamp(Screen.height-point.y-20,145,Screen.height-175),170,40);
+                }
+                return new Rect(Screen.width/2f-100,Screen.height-124,200,40);
+            }
+        }
         Rect Panel => new Rect((Screen.width - 620) / 2f, Mathf.Max(30, (Screen.height - 700) / 2f), 620, Mathf.Min(700, Screen.height - 60));
 
         void Awake()
@@ -26,7 +37,7 @@ namespace Wings
             momentum = Instantiate(momentumAsset);
             bird.profile = assisted;
             input.sandbox = this;
-            input.Paused = true;
+            input.Paused = false;
             Application.targetFrameRate = 60;
             QualitySettings.vSyncCount = 0;
             Time.fixedDeltaTime = 0.02f;
@@ -34,7 +45,21 @@ namespace Wings
             Cursor.lockState = CursorLockMode.None;
         }
 
-        void Update() { input.Sample(); }
+        void Update() { input.Sample(); UpdatePerchTarget(); }
+        public void UpdatePerchTarget()
+        {
+            if (bird.CurrentActivity != BirdMotor.Activity.Flying) return;
+            if (input.Paused) return;
+            var mouse = UnityEngine.InputSystem.Mouse.current;
+            Vector2 point = mouse != null ? mouse.position.ReadValue() : new Vector2(Screen.width/2f,Screen.height/2f);
+            bool hovering = !input.UsingGamepad && bird.SelectedPerch != null && PerchButton.Contains(new Vector2(point.x,Screen.height-point.y));
+            // Retain this exact target while the pointer crosses its button; still validate reachability.
+            if (hovering && PerchTargeting.CanLand(bird.SelectedPerch,bird.State)) return;
+            Ray aim = input.UsingGamepad
+                ? new Ray(bird.State.position,bird.State.Rotation*Quaternion.Euler(-input.Intent.steer.y*20,input.Intent.steer.x*25,0)*Vector3.forward)
+                : flightCamera.GetComponent<Camera>().ScreenPointToRay(point);
+            bird.SelectedPerch = PerchTargeting.Select(bird.perches,bird.State,aim);
+        }
         void OnApplicationFocus(bool focus) { if (!focus) input.Paused = true; }
         void OnDestroy() { Destroy(assisted); Destroy(momentum); }
 
@@ -44,8 +69,8 @@ namespace Wings
             selected = 1 - selected;
             bird.profile = selected == 0 ? assisted : momentum;
         }
-        public void ResetFlight() { bird.ResetFlight(); flightCamera.Recenter(true); }
-        public bool PointerOverUI(Vector2 point) => input.Paused || Header.Contains(point) || Buttons.Contains(point) || PerchButton.Contains(point);
+        public void ResetFlight() { bird.ResetToPerch(); flightCamera.Recenter(true); }
+        public bool PointerOverUI(Vector2 point) => input.Paused || Header.Contains(point) || Buttons.Contains(point) || (bird.HasAction && PerchButton.Contains(point));
         public void ControllerTune(int row, int direction)
         {
             tuningIndex = (tuningIndex + row + 11) % 11;
@@ -108,14 +133,15 @@ namespace Wings
 
             if (!input.Paused)
             {
-                if (GUI.Button(PerchButton, bird.ActionLabel, button)) bird.RequestPerchAction();
+                // Input System owns the press, so GUI's later release cannot trigger a second action.
+                if (bird.HasAction) GUI.Button(PerchButton, bird.ActionLabel, button);
                 GUI.Label(new Rect(Screen.width / 2f - 350, Screen.height - 153, 700, 28), string.IsNullOrEmpty(input.DeviceNotice) ? bird.Status : input.DeviceNotice, body);
                 Vector2 centre = new Vector2(Screen.width / 2f, Screen.height / 2f);
                 Color guide = new Color(0.93f, 0.96f, 0.93f, 0.65f);
                 Fill(new Rect(centre.x - 10, centre.y, 20, 1), guide);
                 Fill(new Rect(centre.x, centre.y - 10, 1, 20), guide);
                 GUILayout.BeginArea(new Rect(25, Screen.height - 72, Screen.width - 50, 55));
-                GUILayout.Label("Find a marked roost. A / E or the Land button assists your approach.", body);
+                GUILayout.Label("Point towards a perch · click Land here or press A / E · press again to cancel", body);
                 GUILayout.Label("TAB / Y  compare     ESC / Start  pause     R / X  reset     C / right stick press  recenter     Water returns you to safety", small);
                 GUILayout.EndArea();
                 return;
@@ -149,7 +175,7 @@ namespace Wings
             GUILayout.Label("Controller", heading);
             GUILayout.Label("Left stick: steer / climb    RT: flap    Right stick: look\nA: land / cancel / take off    B: cancel approach / back\nY: compare    X: reset    Start: pause    A: resume menu\nD-pad while paused selects / adjusts tuning. Press right stick to recenter.", body);
             GUILayout.Label("Mouse", heading);
-            GUILayout.Label("Move around the centre guide to steer. Hold left to flap; release to glide. Hold right to look. Click Land / Take off or press E. C recentres. WASD + Space also work.", body);
+            GUILayout.Label("Move around the centre guide to steer. Hold left to flap; release to glide. Hold right to look. Point at a perch, then click Land here or press E. C recentres. WASD + Space also work.", body);
             GUILayout.Space(8);
             if (GUILayout.Button("Fly  /  Resume", button)) TogglePause();
             GUILayout.BeginHorizontal();

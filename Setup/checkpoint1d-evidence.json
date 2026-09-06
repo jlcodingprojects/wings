@@ -1,0 +1,87 @@
+{
+  "checkpoint": "1D",
+  "date": "2026-09-06",
+  "build": {
+    "result": "Succeeded",
+    "unity": "6000.3.23f1",
+    "backend": "Mono",
+    "graphics": "Direct3D11",
+    "scene": "Assets/Wings/Generated/FlightStudy.unity",
+    "errors": 0,
+    "warnings": 0,
+    "bytes": 164765408
+  },
+  "player": {
+    "unity": "6000.3.23f1",
+    "graphics": "Direct3D11",
+    "device": "NVIDIA GeForce RTX 4070 Ti",
+    "result": "passed",
+    "physicalGamepads": 0,
+    "checks": [
+      "PASS: Scene bootstrap present",
+      "PASS: Game starts perched with zero velocity",
+      "PASS: Articulated wing, head, tail, leg and toe bindings present",
+      "PASS: Resting foot is planted on the branch",
+      "PASS: Controller resume does not also take off",
+      "PASS: Takeoff begins with planted feet and a crouch",
+      "PASS: Leg push transitions into powered forward departure",
+      "PASS: Controller flight aim selects the perch ahead",
+      "PASS: Landing acquisition keeps forward motion",
+      "PASS: Second action cancels landing before contact",
+      "PASS: Forward approach flares, plants feet, then settles",
+      "PASS: Foot contact remains fixed after settling",
+      "PASS: Mouse pointing at a perch reveals Land here",
+      "PASS: Land here click starts landing without steering or flapping",
+      "PASS: Releasing Land here does not cancel the approach",
+      "PASS: Mouse orbit suspends pointer steering",
+      "PASS: Both flight experiments remain available",
+      "PASS: Reset returns to the opening perch",
+      "PASS: Pause preserves contact",
+      "PASS: Rendered start capture",
+      "PASS: Rendered crouch capture",
+      "PASS: Rendered push capture",
+      "PASS: Rendered departure capture",
+      "PASS: Rendered approach capture",
+      "PASS: Rendered flare capture",
+      "PASS: Rendered contact capture",
+      "PASS: Rendered perched capture"
+    ]
+  },
+  "tests": {
+    "failed": 0,
+    "passed": 27,
+    "total": 27
+  },
+  "rigExport": {
+    "bones": 34,
+    "weightedMeshes": 43,
+    "clip": "RigChannelCheck",
+    "result": "exported"
+  },
+  "rigImport": {
+    "result": "passed",
+    "transformNodes": 79,
+    "skinnedMeshes": 43,
+    "clips": 1,
+    "minimumChannelRotation": 16.67015838623047
+  },
+  "capturesInspected": [
+    "start",
+    "menu",
+    "crouch",
+    "push",
+    "departure",
+    "approach",
+    "flare",
+    "contact",
+    "perched"
+  ],
+  "references": [
+    "https://www.youtube.com/watch?v=uAIZrRAR31Y",
+    "https://www.youtube.com/watch?v=oZvA2eL_Sho",
+    "https://journals.biologists.com/jeb/article/213/10/1651/9685/Wing-and-body-kinematics-of-takeoff-and-landing"
+  ],
+  "humanReview": "1C landing rejected; 1D first revision awaiting motion/targeting feedback",
+  "physicalControllerConfirmed": false,
+  "nextCheckpoint": "Living flock flying (2B), before valley expansion (2A)"
+}

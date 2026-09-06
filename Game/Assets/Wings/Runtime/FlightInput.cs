@@ -30,6 +30,7 @@ namespace Wings
             Gamepad pad = Gamepad.current;
             Mouse mouse = Mouse.current;
             Keyboard keyboard = Keyboard.current;
+            bool perchClick = false;
             if (pad != null && (pad.leftStick.ReadValue().sqrMagnitude > 0.02f || pad.rightStick.ReadValue().sqrMagnitude > 0.02f || pad.rightTrigger.ReadValue() > 0.05f || pad.buttonSouth.wasPressedThisFrame)) UsingGamepad = true;
             if (mouse != null && (mouse.delta.ReadValue().sqrMagnitude > 1 || mouse.leftButton.wasPressedThisFrame)) UsingGamepad = false;
             if (pad == null) { if (UsingGamepad) noticeUntil = Time.unscaledTime + 6; UsingGamepad = false; }
@@ -40,6 +41,12 @@ namespace Wings
             if (Paused && ((pad?.buttonSouth.wasPressedThisFrame ?? false) || (pad?.buttonEast.wasPressedThisFrame ?? false))) sandbox.TogglePause();
             if (!wasPaused && !Paused && ((pad?.buttonSouth.wasPressedThisFrame ?? false) || (keyboard?.eKey.wasPressedThisFrame ?? false))) sandbox.bird.RequestPerchAction();
             if (!Paused && (pad?.buttonEast.wasPressedThisFrame ?? false)) sandbox.bird.CancelApproach();
+            if (!wasPaused && !Paused && mouse != null && mouse.leftButton.wasPressedThisFrame && sandbox.bird.HasAction)
+            {
+                var point = mouse.position.ReadValue();
+                perchClick = sandbox.PerchButton.Contains(new Vector2(point.x,Screen.height-point.y));
+                if (perchClick) sandbox.bird.RequestPerchAction();
+            }
             if ((keyboard?.cKey.wasPressedThisFrame ?? false) || (pad?.rightStickButton.wasPressedThisFrame ?? false)) sandbox.flightCamera.Recenter();
             if (Paused)
             {
@@ -68,7 +75,7 @@ namespace Wings
             {
                 Vector2 point = mouse.position.ReadValue();
                 Vector2 guiPoint = new Vector2(point.x, Screen.height - point.y);
-                consumed = sandbox.PointerOverUI(guiPoint);
+                consumed = perchClick || sandbox.PointerOverUI(guiPoint);
                 bool looking = mouse.rightButton.isPressed;
                 LookHeld = looking && !consumed;
                 if (looking && !consumed) Look = mouse.delta.ReadValue() * 0.12f;
