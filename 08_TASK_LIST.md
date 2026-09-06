@@ -1,6 +1,6 @@
 # 08 — Checkpoint Backlog
 
-Checkpoint 1A has a built and automatically verified single-bird comparison prototype. Physical-controller checks and human acceptance remain pending. Complete and review one checkpoint at a time. Checkboxes indicate implementation, while human acceptance is recorded separately in the decision log.
+The user accepted the general 1A flight foundation and authorised continued implementation. The user rejected 1C landing as VTOL-like and requested a bird-motion revision in 1D, with flock flying next. Physical-controller verification remains unconfirmed. Complete and review one checkpoint at a time.
 
 ## Stage 1
 
@@ -8,33 +8,44 @@ Checkpoint 1A has a built and automatically verified single-bird comparison prot
 - [x] Complete download verification and prepare manual installation instructions.
 - [x] User completes installation and authorises subsequent setup/project work.
 - [x] Verify Unity 6000.3.23f1, Blender 4.5.13 LTS, licensing, export/import and automated player smoke tests.
-- [ ] User checks physical-controller input and flight comfort.
+- [x] User reports the general flight is great.
+- [ ] Confirm physical-controller input/hot-plug; the user's tested input device is unspecified.
 - [x] Create URP project and commit resolved package versions.
 - [x] Configure Git ignore/LFS and source asset conventions.
 - [x] Add bootstrap, placeholder bird, initial space and two switchable kinematic steering experiments.
 - [x] Keep single-bird flight state independent of player input so flock agents can use the same movement concepts later.
 - [x] Add controller-first input and mouse guide; build and launch Windows player.
 - [x] Prepare review packet in CHECKPOINT_1A_REVIEW.md.
-- [ ] Receive human feedback before advancing.
+- [x] Receive positive flight feedback and authorisation to advance to 1B.
 
 ### 1B — Flight feel
-- [ ] Implement flap/glide/dive and comfortable neutral recovery.
-- [ ] Separate motor state from visual banking and wing animation.
-- [ ] Expose tuning and verify comparable behaviour at 30/60/120 FPS.
-- [ ] Present review packet and await response.
+- [x] Implement bounded flap/glide/dive and neutral recovery for review.
+- [x] Separate motor state from visual banking and wing animation.
+- [x] Expose tuning and compare fixed-step trajectories under 30/60/120 render schedules.
+- [x] Keep shared defaults with neutral context and isolated resolved values for future bird/flock influences.
+- [x] Prepare review packet in CHECKPOINT_1B_REVIEW.md.
+- [x] User authorises continuing to 1C; detailed dive feedback remains open.
 
 ### 1C — Camera and contact
-- [ ] Add stable camera, recentering and sensitivity/inversion controls.
-- [ ] Add swept collisions, deflection and safe recovery.
-- [ ] Add assisted approach, cancellation, perching and takeoff.
-- [ ] Verify both input paths and UI input consumption.
-- [ ] Present review packet and await response.
+- [x] Add stable camera, recentering and sensitivity/inversion controls.
+- [x] Add swept collisions, deflection and safe recovery.
+- [x] Add assisted approach, cancellation, perching and takeoff.
+- [x] Verify both input paths and UI input consumption.
+- [x] Receive review: landing must look like a real bird; revise in 1D.
 
-### 1D — Flight playground
-- [ ] Add slopes, narrow passage, water, obstacles and several perches.
-- [ ] Provide 5–10-minute route and complete ten-minute comfort review.
-- [ ] Record Stage 1 acceptance before proceeding.
+### 1D — Bird landing and takeoff (revised by user)
+- [x] Inspect real takeoff and landing footage and record references.
+- [x] Replace VTOL-like motion with forward approach, flare, foot contact and settling.
+- [x] Add supported crouch, leg push and powered departure.
+- [x] Select a perch by aim and expose Land here at that spot.
+- [x] Start/reset perched on an overlook branch.
+- [x] Add articulated prototype and explicit animation/rig bindings for detailed wings, legs/toes, head and tail.
+- [x] Export an editable Blender skeleton and weighted mesh; verify animation channels in Unity.
+- [x] Prepare CHECKPOINT_1D_REVIEW.md and evidence.
+- [ ] Obtain review of revised bird motion and targeting.
+- [ ] Sustained ten-minute comfort review remains open; the longer terrain route is deferred.
 
+User-directed next checkpoint: **2B living flock**, before 2A valley expansion. Do not expand flock species or predator mechanics in 1D.
 ## Stage 2
 
 ### 2A — Valley exploration

@@ -23,9 +23,13 @@ Local builds/tests come first. Hosted CI, third-party editor bridges, DOTS/ECS, 
 
 Use ScriptableObjects for authored FlightProfile, BirdDefinition, EnvironmentProfile, LandmarkDefinition and PredatorProfile data. Runtime state must not mutate shared definition assets.
 
+FlightSimulation consumes a FlightTuning value snapshot resolved from a profile and a neutral-by-default FlightContext. All birds initially share defaults. Future bird/flock producers can influence these values; no species hierarchy or flock-speed policy is committed yet. BirdPresentation consumes simulated mode, flap effort, dive amount and visual bank, rather than reading player input.
+
 Use a 50 Hz fixed simulation step with interpolated presentation. The kinematic flight motor sweeps its collision volume, handles contacts and produces a separate visual bank target. Camera updates after visual movement. Maintain one clear owner of player motion.
 
 Keep bootstrap, simulation and presentation separate. A single gameplay scene is sufficient; do not introduce world streaming or a general service framework prematurely.
+
+Checkpoint 1D adds `BirdActionState` (phase/progress, flare, crouch, leg reach, wing fold, grip, gaze and world foot contacts), `LandingTrajectory`, aim-based `PerchTargeting` and explicit `BirdRig` bindings. `BirdMotor` remains the world-motion owner. A future Generic Animator consumes the same action contract with root motion disabled; an authored controller/IK layer replaces procedural posing. The current prefab and editable Blender armature demonstrate wing, leg, head and tail channels. See [motion/rig contract](15_BIRD_MOTION_AND_RIG.md) for asset paths, rebuild sequence and production limitations.
 
 ## Save/load
 

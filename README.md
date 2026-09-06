@@ -4,7 +4,7 @@ A compact Windows game about flight and flock dynamics: initially fly a single b
 
 ## Status
 
-The first Windows single-bird prototype offers switchable assisted and momentum flight experiments. Toolchain checks, 11 edit-mode tests and the visible player smoke test pass; menu and flight captures were inspected on 2026-09-06. Human review and physical-controller checks are pending. See the [checkpoint 1A playtest guide](CHECKPOINT_1A_REVIEW.md), [installation record](12_INSTALLATION_CHECKLIST.md) and [flight/flock context](14_CORE_FLIGHT_AND_FLOCK_CONTEXT.md). No flight model or visual style has been accepted.
+Checkpoint 1D revises landing and takeoff using real-bird motion references: forward approach, flare, foot contact, leg push-off and powered departure. Aim at a perch for Land here; start perched overlooking the lake. The articulated prototype and editable Blender rig support future detailed animations. See the [1D playtest guide](CHECKPOINT_1D_REVIEW.md) and [motion/rig contract](15_BIRD_MOTION_AND_RIG.md). Human motion review remains open. **Flock flying is next**, before broader valley expansion.
 
 ## Committed build
 

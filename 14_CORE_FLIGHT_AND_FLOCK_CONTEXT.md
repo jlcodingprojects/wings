@@ -12,6 +12,8 @@ The current scope stays at 16 companions, with 30 tested for headroom. This mean
 
 At 1A/1B, separate human input from flight intent, simulation state and presentation. The fixed-step motor owns movement; animation and the camera consume its output. Capture position, velocity, heading and flap/glide/dive/perch mode. Player and future AI intent can use the same movement concepts with authored species limits.
 
+On 2026-09-06 the user approved the general flight foundation and clarified that one shared flight setting is enough initially. Bird/flock-dependent parameters come later. Resolve shared settings into per-step value snapshots; keep context neutral today and avoid committing a species/flock aggregation policy ahead of review.
+
 Prove comfortable steering, flight, camera and contact with the single bird first. Do not fabricate package locks or engine test results before the chosen editor is installed and the project exists.
 
 ## Living flock
@@ -32,4 +34,4 @@ At 2D, demonstrate recoverable injury and safe recovery. Healthy → injured →
 - Flock: visible mutual reactions, coherent turns, mixed-speed following, joining/leaving/rejoining, bounded crowding and natural regrouping.
 - Predator: warning and cooldown constraints, flock breakup, recoverable injury, safe-perch escape and no lethal outcomes.
 
-The next executable milestone remains 1A after the user completes or approves installations. The living flock implementation follows its existing 2B checkpoint; injury follows 2D.
+User revision after 1C: checkpoint 1D replaces VTOL-like landing with bird-like approach/contact/takeoff, aim-selected perches and an articulated rig. **Living flock flying (2B) is the next checkpoint after 1D review**, ahead of broader valley expansion (2A). Injury remains in 2D. The motion/action contract is shared with future flock agents; general flight settings remain shared initially.

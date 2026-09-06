@@ -18,7 +18,7 @@ Committed species:
 - Kingfisher: water-associated encounters at lake and waterfall.
 - Heron: slower, calm motion near shore and wet ground.
 
-Use behavioural differences, not statistical upgrades to the player's motor. Keep companions within a compatible speed envelope; formation catch-up assistance prevents slow species becoming permanently stranded.
+Initially use one shared flight setting for all birds. Later flight parameters may depend on bird or flock context, as requested by the user; define and review those influences when implementing the living flock. These are behaviour/flight differences, not progression stat upgrades. Keep companions within a compatible speed envelope; formation catch-up assistance prevents slow species becoming permanently stranded.
 
 ## Recruitment
 

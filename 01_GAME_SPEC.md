@@ -22,7 +22,7 @@ Use assisted forward flight with a fixed-step kinematic motor and swept collisio
 - Flapping is always available. No stalls, stamina depletion or forced precision sequences.
 - Mild wind drift is allowed in Stage 2; it cannot strand the player or invalidate flight assistance.
 
-Expose tuning through a FlightProfile asset rather than hard-coded species-specific controller branches. Initial values are tuned at checkpoint 1B.
+Expose tuning through a FlightProfile asset rather than hard-coded species-specific controller branches. Initially all birds use the same shared defaults. Later bird or flock context can influence resolved flight values without mutating the shared profile or adding player-controller special cases. The general flight foundation was positively reviewed on 2026-09-06; dive tuning and future context rules remain reviewable at their checkpoints.
 
 ## Controls and camera
 
@@ -42,9 +42,9 @@ Keep a stable horizon by default, shake disabled, smooth recentering and adjusta
 
 ## Landing and recovery
 
-A landing request is accepted only near a valid, unblocked perch. Assistance completes the approach; another landing request cancels an approach and resumes flight. Invalid requests leave flight unchanged with brief feedback.
+Every normal game start places the bird on a visually interesting perch. Point towards a reachable perch to reveal **Land here** for that exact spot. Landing preserves forward motion, brakes with a body/wing flare, reaches the feet, grasps and settles. Require a clear approach and braking room; do not hover vertically or reverse onto a perch. Another landing request cancels before foot contact. Invalid requests leave flight unchanged.
 
-A while perched initiates assisted takeoff into clear space. Water contact or an unrecoverable obstruction returns the player to the last safe perch without lost progress. Ordinary collisions slow and deflect the bird. Validate the recovery destination before use; retain the starting perch as a fallback.
+A while perched initiates a supported crouch, leg push-off and powered wingbeats into clear space. Articulated wings, legs/toes, head/gaze and tail must remain supported as the prototype becomes a detailed model. Water contact or an unrecoverable obstruction returns the player to the last safe perch without lost progress. Ordinary collisions slow and deflect the bird. Validate the recovery destination before use; retain the starting perch as a fallback.
 
 ## Resources and failure
 
