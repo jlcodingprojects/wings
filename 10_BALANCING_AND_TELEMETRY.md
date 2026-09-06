@@ -25,8 +25,8 @@ Tune flight speed, steering response, dive limits, glide descent, camera distanc
 | Contact | Thin obstacles, steep terrain, high-speed sweep, water and stuck recovery |
 | Perching | Valid approach, cancellation, invalid target, obstruction and blocked takeoff |
 | Recruitment | Duplicate prevention, capacity, distance hysteresis and temporary interruptions |
-| Flock | Mixed speeds, obstacle avoidance, scattering, rejoin and preserved discoveries |
-| Predator | Warning/duration/cooldown, opening protection, shelter and reload protection |
+| Flock | Mutual neighbour response, mixed speeds, obstacle avoidance, voluntary leaving/rejoining, scattering, capacity reservations and preserved identities/discoveries |
+| Predator | Warning/duration/cooldown, opening protection, shelter, reload protection, recoverable injury and no lethal outcome for any bird |
 | Environment | Year wrap, rest actions, pause, transition reload and valid weather combinations |
 | Saves | Normal reload, interrupted write, corrupt primary, backup and unknown newer version |
 | UI/input | Complete controller-only and mouse-only routes, hot-plug and no double-consumed input |

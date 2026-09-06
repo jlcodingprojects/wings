@@ -2,7 +2,7 @@
 
 ## Structure
 
-A FlockDirector owns membership, formation targets, confidence and regrouping. Bird agents execute local steering and animation. Keep authored BirdDefinition assets separate from runtime membership and behavioural state.
+A FlockDirector owns membership, loose formation guidance, confidence and regrouping. Each active bird simulates its own position, velocity, flight mode, neighbour response and social state. Birds respond to one another as well as the player; they are not animated offsets attached to a leader. Keep authored BirdDefinition assets separate from runtime membership and behavioural state.
 
 Start with ordinary C# and bounded neighbour queries. Steering combines target following, separation, alignment, cohesion and terrain/obstacle avoidance. Avoid full rigidbody interactions between companions. Profile before adopting Jobs/Burst or more elaborate simulation LOD.
 
@@ -26,17 +26,19 @@ States: wandering → notice → investigate → parallel flight → joining →
 
 Calm nearby parallel flight builds interest. Use separate enter/leave distances and a grace period so small fluctuations do not reset progress. Telegraph interest with orientation, calls and formation behaviour; no recruit button is required.
 
-A bird can enter the roster only once. Stable species discoveries and individual roster entries are separate. At capacity, preserve discoveries but do not silently replace an existing companion; further flock membership waits for a future capacity decision.
+A bird has one stable identity and cannot occupy two active membership slots. Keep species discoveries, known individual records and active flock membership separate. At capacity, preserve discoveries but do not silently replace an existing companion; another bird can join when a slot becomes available.
+
+Active members can transition through companion → leaving → independent, and later investigate and rejoin. Leaving is a visible behaviour, not destruction or death. Use provisional social/habitat motives and hysteresis; review their pacing at 2B. Predator scattering is a separate state from voluntary departure. Reserve scattered members' slots during regrouping; known independent birds do not consume active slots. Joining/leaving events must be explicit and observable.
 
 ## Confidence and recovery
 
-Confidence affects formation and temporary scattering only. Scattered companions remain roster members. They regroup through recovery steering or reappear with the flock at a safe perch. Loading reconstructs formation rather than restoring every bird position.
+Confidence affects formation and temporary scattering only. Scattered companions retain their membership reservation and regroup through simulated recovery steering. Safe-perch reconstruction is a fallback for stranded agents, not the normal flock movement mechanism. Loading reconstructs active formation while preserving known identities and membership states.
 
-Do not erase journal discoveries, permanently remove companions, wobble the player's camera or penalise steering.
+Do not erase journal discoveries or delete birds as a consequence of predator impact. Voluntary departure changes active membership without erasing identity. Keep the camera stable; any recoverable injury effect on flight must be reviewed at 2D.
 
 ## Hawk predator
 
-One type: patrol → assess → telegraph → approach/feint → disengage → cooldown.
+One type: patrol → assess → telegraph → approach/feint or impact → disengage → cooldown.
 
 Initial constraints:
 - No encounter during the first five minutes of a new game.
@@ -46,10 +48,11 @@ Initial constraints:
 - Only one active encounter.
 - Safe perches and shelter prevent new attacks and end pursuit.
 - Never spawn directly in the flight path; always provide an escape route.
-- Effects are temporary flock scattering, calls and formation changes; no injury or death.
+- Impact can break up the flock and injure the player bird. Every bird remains alive; no death state, lethal damage or permanent predator loss exists.
+- Injury is recoverable. Provisionally use healthy → injured → recovering → healthy, retaining reliable controls and safe-perch recovery. Exact effects, duration and feedback are reviewed at 2D before they are treated as accepted mechanics.
 
 Cooldown and onboarding protection must survive saving/loading. Season/time skipping cannot bypass the encounter cooldown. Gameplay timers use active play time, not accelerated world time.
 
 ## Validation
 
-Test duplicate recruitment, capacity, hysteresis, mixed-speed following, obstacles, separation recovery, roster preservation and all predator timing/protection rules. Seed scenarios for repeatable setup without claiming exact physics replay.
+Test duplicate recruitment, capacity reservations, hysteresis, voluntary leaving/rejoining, mixed-speed following, neighbour response, obstacles, separation recovery, identity preservation, nonlethal injury recovery and all predator timing/protection rules. Seed scenarios for repeatable setup without claiming exact physics replay.

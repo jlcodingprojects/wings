@@ -1,16 +1,21 @@
 # 08 — Checkpoint Backlog
 
-All gameplay/setup tasks are pending. Complete and review one checkpoint at a time. Checkboxes indicate implementation, while human acceptance is recorded separately in the decision log.
+Checkpoint 1A has a built and automatically verified single-bird comparison prototype. Physical-controller checks and human acceptance remain pending. Complete and review one checkpoint at a time. Checkboxes indicate implementation, while human acceptance is recorded separately in the decision log.
 
 ## Stage 1
 
 ### 1A — Setup and control
-- [ ] Verify/install pinned Unity 6.3 LTS and Blender 4.5 LTS; complete licensing and smoke tests.
-- [ ] Create URP project and commit resolved package versions.
-- [ ] Configure Git ignore/LFS and source asset conventions.
-- [ ] Add bootstrap, placeholder bird, initial space and basic kinematic steering.
-- [ ] Add controller-first input and mouse guide; build and launch Windows player.
-- [ ] Present review packet and await response.
+- [x] Complete download verification and prepare manual installation instructions.
+- [x] User completes installation and authorises subsequent setup/project work.
+- [x] Verify Unity 6000.3.23f1, Blender 4.5.13 LTS, licensing, export/import and automated player smoke tests.
+- [ ] User checks physical-controller input and flight comfort.
+- [x] Create URP project and commit resolved package versions.
+- [x] Configure Git ignore/LFS and source asset conventions.
+- [x] Add bootstrap, placeholder bird, initial space and two switchable kinematic steering experiments.
+- [x] Keep single-bird flight state independent of player input so flock agents can use the same movement concepts later.
+- [x] Add controller-first input and mouse guide; build and launch Windows player.
+- [x] Prepare review packet in CHECKPOINT_1A_REVIEW.md.
+- [ ] Receive human feedback before advancing.
 
 ### 1B — Flight feel
 - [ ] Implement flap/glide/dive and comfortable neutral recovery.
@@ -37,8 +42,8 @@ All gameplay/setup tasks are pending. Complete and review one checkpoint at a ti
 - [ ] Review scale, sightlines and travel time.
 
 ### 2B — Living flock
-- [ ] Implement one species, formation and bounded neighbour steering.
-- [ ] Add recruitment hysteresis, stable membership and cap handling.
+- [ ] Implement one species with individual flight state, loose formation and mutual bounded neighbour steering.
+- [ ] Add joining/leaving/rejoining hysteresis, stable identities and active/reserved cap handling.
 - [ ] Add scattering/recovery without permanent loss.
 - [ ] Verify mixed-speed capability and 30-companion stress scenario.
 - [ ] Review flock behaviour before expanding species.
@@ -53,7 +58,8 @@ All gameplay/setup tasks are pending. Complete and review one checkpoint at a ti
 ### 2D — Gentle tension
 - [ ] Implement single hawk and warning/encounter/cooldown constraints.
 - [ ] Protect opening and safe perches; preserve protection through reload.
-- [ ] Verify regrouping, escape routes and no control penalties.
+- [ ] Implement and review recoverable player injury from impact; no death for any bird.
+- [ ] Verify regrouping, escape routes, injury recovery and reliable control; review any flight effects explicitly.
 - [ ] Review fairness and tension.
 
 ### 2E — Complete loop

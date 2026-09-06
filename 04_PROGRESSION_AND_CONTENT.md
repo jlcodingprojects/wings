@@ -16,11 +16,11 @@ Sparrows introduce recruitment near the meadow. Layout, distances and route paci
 
 ## Progression
 
-Discover species and landmarks, record them in a journal and build a persistent flock. Remove the old ten-level progression and flight-stat unlock ladder. All enjoyable basic flight capabilities are available from the start.
+Discover species and landmarks, record them in a journal and develop a changing flock with persistent known bird identities. Remove the old ten-level progression and flight-stat unlock ladder. All enjoyable basic flight capabilities are available from the start.
 
 The journal records four recruitable species: sparrow, swallow, kingfisher and heron. Each entry needs habitat, identifiable silhouette, a call and readable behaviour. Availability may vary with the world but resting must make every required encounter reachable.
 
-Companion membership persists through scattering. This build caps active companions at 16; no inventory or complex roster management is required.
+Companion membership reservations persist through scattering. Birds can also voluntarily leave and later rejoin; their identity and discoveries persist. This build caps active/reserved companions at 16; no inventory or complex roster management is required.
 
 ## Migration finale
 

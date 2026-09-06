@@ -1,10 +1,10 @@
 # Wings of Wander — Human-Readable Summary
 
-You are a bird flying through a small, changing valley. Flight should feel relaxed and effortless. You discover places, meet birds and gradually gather a flock.
+You begin by flying a single bird through a small, changing valley. Flight should feel relaxed and effortless. The game centres on flock and flight dynamics: guiding and watching individually simulated birds flying together, joining, leaving and regrouping.
 
 The first complete game has one connected valley, four recruitable species, six landmarks and a short migration finale. You can keep exploring after the finale.
 
-There is no stamina meter, conventional combat or permanent loss of companions. A hawk occasionally creates a brief, clearly signalled scare. Your flock may scatter, but it regroups and your controls stay reliable.
+There is no stamina meter, conventional combat or death for any bird. A hawk can break up your flock and injure your bird. Injury is recoverable, and scattered birds can regroup; its precise effects will be reviewed during implementation. Birds can also leave naturally and return without losing their identity or your discoveries.
 
 Time and seasons advance automatically: a day takes 12 minutes, a season 24 minutes and a year 96 minutes. Resting at a perch skips to dawn or the next season. Wind can accompany clear skies, rain or snow. Weather creates atmosphere and mild changes in the flock rather than survival pressure.
 
@@ -24,4 +24,4 @@ The machine already has older Unity and Blender installations. The installation 
 
 ## Current status
 
-This is the accepted documentation baseline, not an implemented game. No setup, flight or content checkpoint has passed yet. The next implementation milestone is 1A: setup and basic control.
+A first single-bird Windows prototype is ready for review, with assisted and momentum flight as switchable experiments and editable session tuning. Setup and automated checks pass; the player still needs to judge flight feel and physical-controller behaviour. No checkpoint is human-accepted, and no flight model or art treatment is settled. See [the playtest guide](CHECKPOINT_1A_REVIEW.md).

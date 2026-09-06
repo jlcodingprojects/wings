@@ -1,0 +1,6 @@
+{
+  "name": "Wings.Tests",
+  "references": ["Wings.Runtime", "Unity.InputSystem"],
+  "includePlatforms": ["Editor"],
+  "optionalUnityReferences": ["TestAssemblies"]
+}

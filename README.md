@@ -1,10 +1,10 @@
 # Wings of Wander — Approved Plan Pack
 
-A compact Windows game about relaxed flight, exploration and gathering a flock, built interactively with the player steering progress at frequent checkpoints.
+A compact Windows game about flight and flock dynamics: initially fly a single bird, then guide and watch birds flying together, joining, leaving and regrouping. Built interactively with the player steering progress at frequent checkpoints.
 
 ## Status
 
-Planning baseline accepted on 2026-09-05. This repository currently contains documentation; no playable build or setup smoke test has been completed. This documentation pass does not install software or implement gameplay.
+The first Windows single-bird prototype offers switchable assisted and momentum flight experiments. Toolchain checks, 11 edit-mode tests and the visible player smoke test pass; menu and flight captures were inspected on 2026-09-06. Human review and physical-controller checks are pending. See the [checkpoint 1A playtest guide](CHECKPOINT_1A_REVIEW.md), [installation record](12_INSTALLATION_CHECKLIST.md) and [flight/flock context](14_CORE_FLIGHT_AND_FLOCK_CONTEXT.md). No flight model or visual style has been accepted.
 
 ## Committed build
 
@@ -12,6 +12,7 @@ Planning baseline accepted on 2026-09-05. This repository currently contains doc
 - Four recruitable species: sparrow, swallow, kingfisher and heron.
 - Up to 16 companions; test 30 as performance headroom.
 - One hawk predator creating regular, gentle, nonlethal tension.
+- Predator impact can scatter the flock and cause recoverable player injury. No bird ever dies.
 - Automatic day/night and seasons; clear/rain/snow with independent wind.
 - Six landmarks, persistent journal, save/load and a short migration finale.
 - A 20–30-minute discovery route, followed by continued free exploration.
@@ -43,5 +44,6 @@ Each stage contains review checkpoints. Pause for human feedback at each checkpo
 | [Balancing and validation](10_BALANCING_AND_TELEMETRY.md) | Tuning and required evidence |
 | [Installation checklist](12_INSTALLATION_CHECKLIST.md) | Existing software, downloads and connection tests |
 | [Decision and checkpoint log](13_DECISIONS_AND_CHECKPOINTS.md) | Accepted direction and pending reviews |
+| [Core flight and flock context](14_CORE_FLIGHT_AND_FLOCK_CONTEXT.md) | Single-bird foundation and living flock implementation constraints |
 
 Implementation order is governed by the roadmap; accepted changes are recorded in the decision log and propagated to affected specifications. Scope extensions require a new recorded decision.
